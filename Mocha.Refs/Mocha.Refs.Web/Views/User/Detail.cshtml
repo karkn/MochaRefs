@@ -1,0 +1,69 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model DetailPageViewModel
+
+@{
+    ViewBag.Title = Model.Author.DisplayName;
+    var auth = Request.IsAuthenticated;
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<h2 class="condition" ng-show="Condition">{{Condition}}</h2>
+
+@if (Model.RefLists.Count > 0)
+{
+    <div class="clearfix">
+        <div class="pull-right">
+            @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+        </div>
+    </div>
+
+    @Html.Partial("_RefListSummaries", new { IsTagUseLinkToListDetail = true }.ToExpando())
+    <div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+}
+else
+{
+    <p>リストがありません。</p>
+}
+
+@section sidebar {
+    <div id="default-sidebar-content">
+        @Html.Partial(
+                "Sidebar/_AuthorProfileWell",
+                new {
+                    Id = Model.Author.Id.ToString(), UserName = Model.Author.UserName, DisplayName = Model.Author.DisplayName,
+                    ToggleFavoriteFunc = "toggleFavorite()",
+                    IsFavored = "Model.IsFavored",
+                    IsNotFavored = "!Model.IsFavored",
+                }.ToExpando())
+
+        <h5>タイトル</h5>
+        @Narrow.TitleForm("narrow(1)", "Model.TitleSearch")
+
+        <h5>タグ</h5>
+        @Html.Partial("Sidebar/_AuthorOwnedTagUseList", new { OwnedTagUses = "Model.OwnedTagUses" }.ToExpando())
+    </div>
+}
+
+
+@section styles {
+    @Styles.Render("~/Content/user-detail")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    <script type="text/javascript">
+        mc.page = {
+            model: [@Html.Raw(Model.ToJson())][0],
+            actions: {
+                addFavorite: "@Url.Action("AddFavoriteUser", "User")",
+                removeFavorite: "@Url.Action("RemoveFavoriteUser", "User")",
+            }
+        };
+    </script>
+    @Html.Partial("_DetailScripts", Model)
+}

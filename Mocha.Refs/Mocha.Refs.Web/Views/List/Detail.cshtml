@@ -1,0 +1,170 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model DetailPageViewModel
+
+@{
+    ViewBag.Title = Model.RefList.Title;
+
+    var edit = Model.IsEdit;
+    var canEdit = Model.CanEdit;
+    var auth = Request.IsAuthenticated;
+
+    var listItemsAttrs = edit ? "data-ui-sortable=\"sortableOptions\" ng-model=\"Model.Refs\"" : "";
+}
+
+<div class="list-header">
+    @Html.Partial("Detail/_ListHeader", Model)
+</div>
+
+<div class="list-detail">
+    @Html.Partial("Detail/_ListDetail", new { IsEdit = Model.IsEdit, Refs = "Model.Refs" }.ToExpando())
+</div>
+
+@if (edit)
+{
+    @Html.Partial("Detail/_RemoveItemModal")
+    @Html.Partial("Detail/_MoveRefModal")
+    @Html.Partial("Detail/_PocketAuthModal")
+
+    <div id="formContainer">
+        <div id="link-edit" class="link-edit" style="display:none;">
+            @Html.Partial(
+                "Detail/_EditLinkForm",
+                new
+                {
+                    Form = "editLinkForm",
+                    Ok = "saveEditLink",
+                    Cancel = "cancelEditLink"
+                }.ToExpando()
+            )
+        </div>
+
+        <div id="heading-edit" class="heading-edit" style="display:none;">
+            @Html.Partial(
+                "Detail/_EditHeadingForm",
+                new
+                {
+                    Form = "editHeadingForm",
+                    Ok = "saveEditHeading",
+                    Cancel = "cancelEditHeading"
+                }.ToExpando()
+            )
+        </div>
+
+        <div id="text-edit" class="text-edit" style="display:none;">
+            @Html.Partial(
+                "Detail/_EditTextForm",
+                new
+                {
+                    Form = "editTextForm",
+                    Ok = "saveEditText",
+                    Cancel = "cancelEditText"
+                }.ToExpando()
+            )
+        </div>
+
+        <div id="item-add" class="item-add" style="display:none;">
+            <p class="toolbar-title">ここに項目を追加</p>
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-default" ng-click="showAddLink($event, item)">リンク</button>
+                <button type="button" class="btn btn-default" ng-click="showAddHeading($event, item)">見出し</button>
+                <button type="button" class="btn btn-default" ng-click="showAddText($event, item)">テキスト</button>
+            </div>
+            <div class="link-add">
+                @Html.Partial("Detail/_EditLinkForm", new { Form = "addLinkForm", Ok = "saveAddLink", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+            <div class="heading-add">
+                @Html.Partial("Detail/_EditHeadingForm", new { Form = "addHeadingForm", Ok = "saveAddHeading", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+            <div class="text-add">
+                @Html.Partial("Detail/_EditTextForm", new { Form = "addTextForm", Ok = "saveAddText", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+        </div>
+    </div>
+}
+
+@section sidebar {
+    @Html.Partial("Detail/_Sidebar", Model)
+}
+
+@section meta {
+    @{
+        var desc = Model.RefList.Comment;
+        var keywords = Model.RefList.TagUses == null ? null : string.Join(",", Model.RefList.TagUses);
+    }
+    @if (!string.IsNullOrWhiteSpace(desc))
+    {
+        <meta name="description" content="@desc" />
+        <meta property="og:description" content="@desc" />
+    }
+    @if (!string.IsNullOrWhiteSpace(keywords))
+    {
+        <meta name="keywords" content="@keywords" />
+    }
+
+    <meta name="fragment" content="!">
+}
+
+
+@section styles {
+    @Styles.Render("~/Content/list-detail")
+    @if (edit)
+    {
+        /// overflow-y: scrollだとjQuery UI sortableの動作がおかしくなる。
+        /// 下の方にスクロールした状態でドラッグすると再現できる。
+        <style type="text/css">
+            body {
+                overflow-y: visible;
+            }
+        </style>
+    }
+}
+
+
+@section angular {
+    @Scripts.Render("~/bundles/ui-sortable")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script type="text/javascript">
+        angular.module("Refs", ['ngSanitize', 'ui.sortable']);
+    </script>
+}
+
+
+@section scripts {
+    <script type="text/javascript">
+        mc.page = {
+            model: [@Html.Raw(Model.ToJson())][0],
+            actions: {
+                editListHeader: "@Url.Action("EditListHeader")",
+
+                addFavorite: "@Url.Action("AddFavoriteRefList", "List")",
+                removeFavorite: "@Url.Action("RemoveFavoriteRefList", "List")",
+
+                addRef: "@Url.Action("AddRef")",
+                removeRef: "@Url.Action("RemoveRef")",
+                editRef: "@Url.Action("EditRef")",
+                moveRef: '@Url.Action("MoveRef")',
+                moveRefTo: "@Url.Action("MoveRefTo")",
+
+                getRefLists: "@Url.Action("GetRefLists", "List")",
+                getPocketItems: "/List/GetPocketItems",
+                authPocket: "/List/AuthPocket",
+
+                getTitle: mc.env.utilUrlBase + "/title",
+                getDescription: mc.env.utilUrlBase + "/description",
+                getImage: mc.env.utilUrlBase + "/image"
+            }
+        };
+    </script>
+
+    @if (edit)
+    {
+        @Scripts.Render("~/bundles/xregexp")
+        @Scripts.Render("~/bundles/list-detail-common")
+        @Scripts.Render("~/bundles/list-detail-edit")
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/list-detail-common")
+        @Scripts.Render("~/bundles/list-detail-view")
+    }
+}

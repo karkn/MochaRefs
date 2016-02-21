@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "プロフィール画像の変更";
+
+    /// ファイルinputの表示、動作については以下を参照。
+    /// http://labs.abeautifulsite.net/demos/bootstrap-file-inputs/
+}
+
+<h1 class="page-header">@ViewBag.Title</h1>
+
+@using (Html.BeginForm("UploadProfileImage", "Account", FormMethod.Post,
+    new { @class = "form-horizontal", role = "form", enctype="multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <p>
+        プロフィール画像を指定してください。実際に表示に反映されるまで少し時間がかかることがあります。
+    </p>
+    <ul>
+        <li>推奨画像サイズは128x128、推奨画像形式はPNGです。</li>
+        <li>ファイルサイズは200KB以下でなくてはなりません。</li>
+    </ul>
+    <hr />
+
+    @Html.ValidationSummary()
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">プロフィール画像</label>
+        <div class="col-md-10 input-group">
+            <input type="text" class="form-control" readonly>
+            <span class="input-group-btn">
+                <span class="btn btn-primary btn-file">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    <input name="profileImageFile" type="file">
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10" style="padding-left: 0px;" >
+            <input type="submit" class="btn btn-primary" value="アップロード" />
+        </div>
+    </div>
+}
+
+@section styles {
+    <style type="text/css">
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-file input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 999px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                background: red;
+                cursor: inherit;
+                display: block;
+            }
+
+        input[readonly] {
+            background-color: white !important;
+            cursor: text !important;
+        }
+        
+        .input-group{
+            max-width: 320px;
+        }
+    </style>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document)
+            .on('change', '.btn-file :file', function () {
+                var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
+
+        $(function () {
+            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
+    </script>
+}

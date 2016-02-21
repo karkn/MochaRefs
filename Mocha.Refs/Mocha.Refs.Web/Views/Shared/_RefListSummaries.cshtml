@@ -1,0 +1,71 @@
+﻿@{
+    var refLists = ExpandoObjectUtil.GetValueDefault(Model, "RefList", "Model.RefLists");
+    var isTagUseLinkToListDetail = ExpandoObjectUtil.GetValueDefault(Model, "IsTagUseLinkToListDetail", false);
+}
+
+<article class="list-summary" ng-repeat="list in @(refLists)" data-ref-list-id="{{list.Id}}" ng-click="toggleListDetail($event, list)">
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <h4 class="title"><a href="@Url.Content("~/lists")/{{list.Id}}">{{list.Title||"@WebConsts.UnsetTitle"}}</a></h4>
+            <p class="comment">{{list.Comment}}</p>
+            <p class="tag">
+                @RenderTagUse(isTagUseLinkToListDetail)
+            </p>
+        </div>
+        <div class="meta-container col-md-4 col-xs-12">
+            <div class="meta-vertical visible-md visible-lg">
+                <p class="meta">
+                    <span class="glyphicon glyphicon-link"></span> {{list.Statistics.LinkCount}} <span style="font-size: small;">links</span>
+                    @*<span class="glyphicon glyphicon-star"></span> {{list.Statistics.FavoriteCount}} <span style="font-size: small;">favs</span>*@
+                    @*<span class="glyphicon glyphicon-search"></span> {{list.Statistics.ViewCount}} <span style="font-size: small;">views</span>*@
+                </p>
+                <p class="meta">
+                    {{list.PublishedDate|date:"yyyy/MM/dd"}} 公開
+                </p>
+                <p class="meta">
+                    {{list.UpdatedDate|date:"yyyy/MM/dd"}} 更新
+                </p>
+                <p class="meta">
+                    @UserName.RenderForAngular(
+                        Url, "list.Author.HasProfileImage", "!list.Author.HasProfileImage",
+                        "{{list.Author.Id}}", "{{list.Author.UserName}}", "{{list.Author.DisplayName}}",
+                        24, 24
+                    )
+                </p>
+            </div>
+            <div class="meta-horizontal visible-xs visible-sm">
+                <p class="meta">
+                    <span class="glyphicon glyphicon-link"></span> <span>{{list.Statistics.LinkCount}} links</span>,
+                    @*<span class="glyphicon glyphicon-star"></span> {{list.Statistics.FavoriteCount}} <span style="font-size: small;">favs</span>,*@
+                    <span>{{list.PublishedDate|date:"yyyy/MM/dd"}} 公開</span>,
+                    <span>{{list.UpdatedDate|date:"yyyy/MM/dd"}} 更新</span>,
+                    @UserName.RenderForAngular(
+                        Url, "list.Author.HasProfileImage", "!list.Author.HasProfileImage",
+                        "{{list.Author.Id}}", "{{list.Author.UserName}}", "{{list.Author.DisplayName}}"
+                    )
+                </p>
+            </div>
+        </div>
+        <div class="list-actions-container col-xs-12">
+            <div class="list-actions" style="display:none;">
+                <span class="fa fa-plus-square-o fa-2x" ng-if="!DetailPartView[list.Id]"></span>
+                <span class="fa fa-minus-square-o fa-2x" ng-if="DetailPartView[list.Id]"></span>
+            </div>
+        </div>
+        <div class="list-detail col-xs-offset-half col-xs-11" ng-if="DetailPartView[list.Id]">
+            <div ng-include="DetailPartView[list.Id]"></div>
+        </div>
+    </div>
+</article>
+
+@helper RenderTagUse(bool isTagUseLinkToListDetail)
+{
+    if (isTagUseLinkToListDetail)
+    {
+        @TagUse.RenderForListDetail(Url.Content("~/users/"), "list.TagUses", "list.Author")
+    }
+    else
+    {
+        @TagUse.Render(Url.Content("~/tags/"), "list.TagUses")
+    }
+}

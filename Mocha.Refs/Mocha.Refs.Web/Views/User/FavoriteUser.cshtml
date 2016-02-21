@@ -1,0 +1,47 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model FavoriteUserPageViewModel
+
+@{
+    ViewBag.Title = "お気に入り";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<ul class="nav nav-tabs" style="margin-bottom: 10px;">
+    <li><a href="@Url.Action("FavoriteRefList")">リスト</a></li>
+    <li><a href="@Url.Action("FavoriteTag")">タグ</a></li>
+    <li class="active"><a href="@Url.Action("FavoriteUser")">ユーザー</a></li>
+</ul>
+
+@if (Model.Users.Count > 0)
+{
+    <div class="row">
+        <div class="user col-xs-6 col-sm-4 col-md-3" ng-repeat="user in Model.Users">
+            @UserName.RenderForAngular(
+                Url, "user.HasProfileImage", "!user.HasProfileImage",
+                "{{user.Id}}", "{{user.UserName}}", "{{user.DisplayName}}",
+                32, 32
+            )
+        </div>
+    </div>
+}
+else
+{
+    <p>お気に入り登録されたユーザーがありません。</p>
+}
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-index")
+}
+
+@section scripts {
+    @Html.Partial("_FavoriteUserScripts", Model)
+}

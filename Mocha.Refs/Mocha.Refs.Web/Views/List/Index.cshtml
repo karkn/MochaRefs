@@ -1,0 +1,39 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model IndexPageViewModel
+
+@{
+    ViewBag.Title = "リスト";
+}
+
+<div class="page-title">
+    <h1 class="page-header">@(ViewBag.Title)</h1>
+</div>
+
+<h2 class="condition" ng-show="Condition">{{Condition}}</h2>
+
+<div class="clearfix">
+    <div class="pull-right">
+        @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+    </div>
+</div>
+
+@Html.Partial("_RefListSummaries", new { }.ToExpando())
+
+<div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+
+@section sidebar {
+@*    <h5>おすすめのリスト</h5>
+    @Html.Action("TopViewCountRefLists") *@
+
+    <h5>新着リスト</h5>
+    @Html.Action("NewlyArrivedRefLists")
+}
+
+@section styles {
+    @Styles.Render("~/Content/list-index")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    @Html.Partial("_IndexScripts", Model)
+}

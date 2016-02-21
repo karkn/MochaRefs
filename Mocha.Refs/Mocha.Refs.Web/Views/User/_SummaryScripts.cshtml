@@ -1,0 +1,14 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model SummaryPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {
+        };
+
+    }
+
+</script>

@@ -1,0 +1,19 @@
+﻿@using Mocha.Refs.Web.Models.Home
+@model IndexPageViewModel
+@{
+    var auth = Request.IsAuthenticated;
+    var userName = (string)ViewBag.UserName;
+    var displayName = (string)ViewBag.DisplayName;
+    var id = (string)ViewBag.Id;
+}
+
+<div id="default-sidebar-content">
+    <button class="btn btn-primary" ng-click="_goto('@Url.Content("~/List/Create")')"><span class="glyphicon glyphicon-pencil"></span> リストを作成する</button>
+
+@*    <h5>おすすめのリスト</h5>
+    @Html.Action("TopViewCountRefLists")
+    *@
+
+    <h5>新着リスト</h5>
+    @Html.Action("NewlyArrivedRefLists")
+</div>

@@ -1,0 +1,34 @@
+﻿@{
+    var id = (string)Model.Id;
+    var userName = (string)Model.UserName;
+    var displayName = (string)Model.DisplayName;
+    var toggleFavoriteFunc = (string)Model.ToggleFavoriteFunc;
+    var isFavored = (string)Model.IsFavored;
+    var isNotFavored = (string)Model.IsNotFavored;
+    
+    var auth = Request.IsAuthenticated;
+}
+ <div class="well well-sm profile-well">
+    @if (Url.ExistsSmallProfileImage(id, userName))
+    {
+        <a href="@Url.Content("~/users/")@userName">
+            <img src="@(Url.SmallProfileImage(id, userName))" height="48" width="48" />
+        </a>
+        <a href="@Url.Content("~/users/")@userName">
+            @displayName
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Content("~/users/")@userName">
+            <img src="@(Url.Content("~/Images/user.jpg"))" height="48" width="48" />
+        </a>
+        <a href="@Url.Content("~/users/")@userName">
+            @displayName
+        </a>
+    }
+     @if (auth)
+     {
+         @Favorite.Button(toggleFavoriteFunc, isFavored, isNotFavored)
+     }
+</div>

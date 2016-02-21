@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @*<li>
+                    <a href="@Url.Action("Index", "List")">
+                        <span class="glyphicon glyphicon-home"></span> <span class="hidden-sm-inline">マイページ</span>
+                    </a>
+                </li>*@
+            <li>
+                <a href="@Url.Action("Create", "List")" title="リストを作成">
+                    <span class="glyphicon glyphicon-pencil"></span> <span class="hidden-sm-inline">リストを作成</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Manage", "List")" title="リスト管理">
+                    <span class="fa fa-list-ul"></span> <span class="visible-xs-inline">リスト管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("FavoriteRefList", "User")" ng-click="_goto('@Url.Action("FavoriteRefList", "User")')" title="お気に入り">
+                    <span class="glyphicon glyphicon-star"></span> <span class="visible-xs-inline">お気に入り</span>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle profile-dropdown" data-toggle="dropdown">
+                    @if (@Url.ExistsSmallProfileImage((string)ViewBag.Id, (string)ViewBag.UserName))
+                    {
+                        <img src="@Url.SmallProfileImage((string)ViewBag.Id, (string)ViewBag.UserName)" height="32" width="32" />
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-user" style=""></span>
+                    }
+                    <span class="hidden-sm-inline" style="margin-left: 4px;">@ViewBag.DisplayName</span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Manage", "List")"><span class="fa fa-list-ul"></span> リスト管理</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Manage", "TagUse")"><span class="glyphicon glyphicon-tag"></span> タグ管理</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="@Url.Action("FavoriteRefList", "User")"><span class="glyphicon glyphicon-star"></span> お気に入り</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="@Url.Action("Edit", "Account")" title="ユーザー情報の変更">
+                            <span class="glyphicon glyphicon-wrench"></span> ユーザー情報の変更
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("UploadProfileImage", "Account")" title="プロフィール画像の変更">
+                            <span class="glyphicon glyphicon-wrench"></span> プロフィール画像の変更
+                        </a>
+                    </li>
+                    @*<li>
+                        <a href="@Url.Action("Manage", "Account")" title="パスワードの変更">
+                            <span class="glyphicon glyphicon-wrench"></span> パスワードの変更
+                        </a>
+                    </li>*@
+                    <li class="divider"></li>
+                    <li>
+                        <a href="http://blog.mochaware.jp/refs_help" title="ヘルプ" target="_blank">
+                            <span class="glyphicon glyphicon-question-sign"></span> ヘルプ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.mochaware.jp/refs_help/use_bookmarklet" title="ブックマークレットを使う" target="_blank">
+                            <span class="glyphicon glyphicon-question-sign"></span> ブックマークレットを使う
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.mochaware.jp/refs_help/add_link_by_dnd" title="ドラッグ&amp;ドロップでリンクを追加する" target="_blank">
+                            <span class="glyphicon glyphicon-question-sign"></span> ドラッグ&amp;ドロップでリンクを追加する
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.mochaware.jp/refs_help/add_link_from_pocket" title="Pocketからリンクを追加する" target="_blank">
+                            <span class="glyphicon glyphicon-question-sign"></span> Pocketからリンクを追加する
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()">
+                            <span class="glyphicon glyphicon-log-out">
+                            </span> ログオフ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="@Url.Action("Create", "List")" title="リストを作成">
+                <span class="glyphicon glyphicon-pencil"></span> <span class="hidden-sm-inline">リストを作成</span>
+            </a>
+        </li>
+        @*<li>@Html.ActionLink("登録", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+        <li>@Html.ActionLink("ログイン", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

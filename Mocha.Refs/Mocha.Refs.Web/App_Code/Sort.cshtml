@@ -1,0 +1,8 @@
+﻿@helper Select(string model, string arr, string value, string text, string change, int width = 120)
+{
+    <select class="input-sm"
+            data-mc-select ng-model="@(model)"
+            data-style="btn-primary btn-sm" data-width="@(width.ToString())px"
+            data-mc-array="@arr" data-mc-value="@value" data-mc-text="@text"
+            ng-change="@change"></select>
+}

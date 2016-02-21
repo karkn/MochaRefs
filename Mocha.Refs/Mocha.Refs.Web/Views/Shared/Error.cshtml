@@ -1,0 +1,22 @@
+﻿@using Mocha.Common.Exceptions
+@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "エラー";
+    var ex = Model.Exception;
+    var isBusinessError = ex != null && (ex is BusinessException);
+}
+
+<h1 class="text-danger">エラー</h1>
+@if (isBusinessError)
+{
+    <p>@ex.Message</p>
+}
+else
+{
+    <p>
+        要求の処理中にエラーが発生しました。
+        しばらく時間をおいてからのアクセスをお願いします。
+        ご迷惑をおかけしております。
+    </p>
+}

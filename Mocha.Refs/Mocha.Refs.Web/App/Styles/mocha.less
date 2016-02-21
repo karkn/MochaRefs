@@ -1,0 +1,490 @@
+﻿@import "validation";
+@import "color-base";
+
+body {
+    overflow-y: scroll;
+    padding-top: 40px;
+    padding-bottom: 20px;
+
+    //font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_PGothic, Meiryo, sans-serif;
+    font-family: MeiryoKe_PGothic, Meiryo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: @text-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    //font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_PGothic, Meiryo, sans-serif;
+    font-family: MeiryoKe_PGothic, Meiryo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: @text-color;
+}
+
+input,
+button,
+select,
+textarea {
+    //font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_UIGothic, "Meiryo UI", sans-serif;
+    font-family: MeiryoKe_UIGothic, "Meiryo UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices {
+    //font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_UIGothic, "Meiryo UI", sans-serif;
+    font-family: MeiryoKe_UIGothic, "Meiryo UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.select2-search input {
+    //font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_UIGothic, "Meiryo UI", sans-serif;
+    font-family: MeiryoKe_UIGothic, "Meiryo UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+.input-max-width {
+    max-width: 600px;
+}
+
+input,
+select,
+textarea {
+    .input-max-width;
+}
+
+h2 {
+    font-size: large;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+}
+
+h4 {
+    font-size: 16px;
+}
+
+.pre {
+    white-space: pre;
+}
+
+.pre-wrap {
+    white-space: pre-wrap;
+}
+
+.gray-text {
+    color: @gray-text-color;
+}
+
+.required-indicator {
+    color: red;
+    font-weight: bold;
+}
+
+.jumbotron {
+    background-color: rgb(66, 139, 202);
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    h1 {
+        font-size: xx-large;
+    }
+}
+
+.page-header {
+    font-size: large;
+    border-bottom: 1px solid rgb(66, 139, 202);
+
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* navbarの高さ調整 */
+.navbar {
+    min-height: 40px;
+}
+
+.navbar-brand {
+    padding-top: 9px;
+    padding-bottom: 10px;
+    height: 40px;
+}
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+    .navbar-nav > li > a.profile-dropdown {
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+        & .glyphicon {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 20px;
+            text-align: center;
+            width: 32px;
+            height: 32px;
+            margin: 0px;
+            padding: 0px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+    }
+
+.navbar-toggle {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.navbar .chosen-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+/* navbar-inverse内のリンクの色 */
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: #cccccc;
+}
+
+    .navbar-inverse .navbar-brand:hover,
+    .navbar-inverse .navbar-nav > li > a:hover,
+    .navbar-inverse .navbar-brand:focus,
+    .navbar-inverse .navbar-nav > li > a:focus,
+    .navbar-inverse .navbar-brand:active,
+    .navbar-inverse .navbar-nav > li > a:active,
+    .navbar-inverse .navbar-brand.active,
+    .navbar-inverse .navbar-nav > li > a.active {
+        background-color: #404040;
+    }
+
+    .navbar-inverse .navbar-nav > li > a.navbar-page-action {
+        /*color: #ffffff;*/
+    }
+
+//@dark-placeholder-color: #000;
+//.navbar-inverse {
+//    ::-webkit-input-placeholder { /* WebKit browsers */
+//        color: @dark-placeholder-color;
+//    }
+//    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+//        color: @dark-placeholder-color;
+//    }
+//    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+//        color: @dark-placeholder-color;
+//    }
+//    :-ms-input-placeholder { /* Internet Explorer 10+ */
+//        color: @dark-placeholder-color;
+//    }
+//}
+
+/* navbar-inverse内のボタンの色 */
+@dark-background-color: #222222;
+@dark-border-color: #888888;
+@dark-text-color: #cccccc;
+@dark-background-active-color: #404040;
+@dark-text-active-color: #ffffff;
+@dark-text-disabled-color: #999999;
+.navbar-inverse .navbar-btn {
+    background-color: @dark-background-color;
+    border-color: @dark-border-color;
+    color: @dark-text-color;
+}
+
+    .navbar-inverse .navbar-btn:hover,
+    .navbar-inverse .navbar-btn:focus,
+    .navbar-inverse .navbar-btn:active,
+    .navbar-inverse .navbar-btn.active,
+    .open .dropdown-toggle.navbar-inverse .navbar-btn {
+        color: @dark-text-active-color;
+        background-color: @dark-background-active-color;
+    }
+
+    .navbar-inverse .navbar-btn:active,
+    .navbar-inverse .navbar-btn.active,
+    .open .dropdown-toggle.navbar-inverse .navbar-btn {
+        background-image: none;
+    }
+
+    .navbar-inverse .navbar-btn.disabled,
+    .navbar-inverse .navbar-btn[disabled],
+    fieldset[disabled] .navbar-inverse .navbar-btn,
+    .navbar-inverse .navbar-btn.disabled:hover,
+    .navbar-inverse .navbar-btn[disabled]:hover,
+    fieldset[disabled] .navbar-inverse .navbar-btn:hover,
+    .navbar-inverse .navbar-btn.disabled:focus,
+    .navbar-inverse .navbar-btn[disabled]:focus,
+    fieldset[disabled] .navbar-inverse .navbar-btn:focus,
+    .navbar-inverse .navbar-btn.disabled:active,
+    .navbar-inverse .navbar-btn[disabled]:active,
+    fieldset[disabled] .navbar-inverse .navbar-btn:active,
+    .navbar-inverse .navbar-btn.disabled.active,
+    .navbar-inverse .navbar-btn[disabled].active,
+    fieldset[disabled] .navbar-inverse .navbar-btn.active {
+        color: @dark-text-disabled-color;
+    }
+
+/* navbar-btnのマージン */
+.navbar .navbar-btn {
+    margin: 0px;
+    margin-right: 4px;
+}
+
+.navbar-right .navbar-btn {
+    margin-left: 4px;
+}
+
+/* 検索テキストボックス周り */
+.navbar-form {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-right: 0px;
+}
+
+.navbar-inverse input {
+    background-color: rgb(230,230,230);
+    box-shadow: none;
+
+    &:hover, &:active, &:focus {
+    box-shadow: none;
+        background-color: white;
+        border-color: rgb(230, 230, 230);
+    }
+}
+
+#navbar-search {
+    margin-left: 0px;
+    margin-right: 15px;
+
+    .navbar-btn {
+        margin: 0px;
+    }
+}
+@media screen and (min-width: 768px) {
+    #navbar-search {
+        margin-right: -15px;
+
+        .navbar-btn {
+            margin: 0px;
+        }
+    }
+}
+
+/* pagination */
+.pagination-sm li a {
+    min-width: 3em;
+    text-align: center;
+}
+
+/* select */
+.form-group .bootstrap-select.btn-group {
+    display: block;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    margin-bottom: 26px;
+}
+
+.form-inline .form-group .bootstrap-select.btn-group {
+    display: block;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+}
+
+.bootstrap-select.btn-group {
+    display: block;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/*.nav .form-group .bootstrap-select.btn-group {
+    display: inline-block;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 8px;
+    margin-bottom: 0px;
+}*/
+
+/* select2 */
+.select2-container {
+    .input-max-width;
+    width: 100%;
+}
+
+/* tag */
+.tag-use {
+    /*border: 1px solid silver;
+    border-radius: 3px 3px;
+    padding: 3px;
+    background-color: silver;
+    color: white;*/
+}
+
+/* sidebar */
+.sidebar {
+    margin-top: 40px;
+
+    h5 {
+        margin-top: 20px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ddd;
+    }
+
+        h5:first-child {
+            margin-top: 0px;
+        }
+
+    ul:not(.dropdown-menu) li a {
+        padding: 5px 0px 5px 0px;
+    }
+
+    .navbar-btn {
+        display: block;
+        margin-top: 0px;
+        margin-bottom: 8px;
+    }
+
+    .profile-well {
+        img {
+            border: 1px solid #cccccc;
+            margin-right: 4px;
+        }
+
+        .navbar-btn {
+            display: block;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+    }
+    /* 幅xsではaffixにしないで最上部に普通にレイアウト */
+    .affix {
+        position: static;
+    }
+}
+/* 幅sm以上ではではaffixを有効にする */
+@media screen and (min-width: 768px) {
+    .sidebar {
+        .affix {
+            position: fixed;
+        }
+    }
+}
+
+// アイコン
+a .glyphicon,button .glyphicon {
+    margin-right: 2px;
+}
+.glyphicon {
+    top: 2px;
+}
+fa {
+    top: 20px;
+}
+
+.fa-twitter-square {
+    color: rgb(0, 172, 237);
+}
+.fa-facebook-square {
+    color: rgb(59, 89, 153);
+}
+.fa-google-plus-square {
+    color: rgb(212, 67, 50);
+}
+
+// spanがvisible-*、hidden-*でblockにされてしまうのに対応
+@media screen and (min-width: 992px) {
+    // md-
+    .hidden-sm-inline {
+        display: inline-block !important;
+    }
+    .visible-xs-inline {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 991px) {
+    // sm
+    .hidden-sm-inline {
+        display: none !important;
+    }
+    .visible-xs-inline {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 767px) {
+    // xs
+    .hidden-sm-inline {
+        display: inline-block !important;
+    }
+    .visible-xs-inline {
+        display: inline-block !important;
+    }
+}
+
+.newly-arrived-ref-lists {
+    .list-title {
+        margin-bottom: 0px;
+    }
+
+    .list-meta {
+        font-size: 11px;
+        color: @gray-text-color;
+    }
+}
+
+.well {
+    box-shadow: none;
+}
+
+// grid
+@media (min-width: 992px) {
+  .container {
+    width: 880px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 880px;
+  }
+}
+
+.col-xs-offset-half {
+    margin-left: 4.166666666666667%;
+}
+
+/*@media (min-width: 992px) {
+    .col-md-offset-half {
+        //margin-left: 4.166666666666667%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-offset-1half {
+        //margin-left: 12.5%;
+    }
+}*/
+
+
+// bordered
+.bordered {
+    border: 1px solid @border-color;
+}

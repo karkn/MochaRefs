@@ -1,0 +1,27 @@
+﻿@using System.Web.Mvc;
+@using Mocha.Refs.Web.Extensions;
+
+@helper Render(UrlHelper urlHelper, string id, string userName, string displayName, int height = 16, int width = 16)
+{
+    var href = urlHelper.Content("~/users/") + userName;
+    var imgSrc = urlHelper.ExistsSmallProfileImage(id, userName) ?
+        urlHelper.SmallProfileImage(id, userName) :
+        new MvcHtmlString(urlHelper.Content("~/Images/user.jpg"));
+
+    <a href="@href"><img class="user-profile-image" src="@(imgSrc)" height="@(height)" width="@(width)" /></a>
+    <a href="@href">@displayName</a>
+}
+
+@helper RenderText(UrlHelper urlHelper, string userName, string displayName)
+{
+    var href = urlHelper.Content("~/users/") + userName;
+    <a href="@href">@displayName</a>
+}
+
+@helper RenderForAngular(UrlHelper urlHelper, string hasProfileImage, string hasNotProfileImage, string id, string userName, string displayName, int height = 16, int width = 16, bool withLastComma = false)
+{
+    var href = urlHelper.Content("~/users/") + userName;
+    <a href="@href" ng-if="@hasProfileImage"><img class="user-profile-image" ng-src="@(urlHelper.SmallProfileImage(id, userName))" height="@(height)" width="@(width)" /></a>
+    <a href="@href" ng-if="@hasNotProfileImage"><img class="user-profile-image" ng-src="@(urlHelper.Content("~/Images/user.jpg"))" height="@(height)" width="@(width)" /></a>
+    <a href="@href"><span class="user-display-name">@displayName</span></a>@(withLastComma ? "," : "")
+}

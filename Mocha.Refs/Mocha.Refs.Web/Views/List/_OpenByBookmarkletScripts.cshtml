@@ -1,0 +1,17 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model OpenByBookmarkletPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {
+        };
+
+        $scope.Refs = {};
+        $scope.DetailPartView = {};
+        $scope.toggleListDetail = getToggleListDetailFunc($scope);
+    }
+
+</script>

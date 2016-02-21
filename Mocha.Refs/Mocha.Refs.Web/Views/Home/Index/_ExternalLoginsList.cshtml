@@ -1,0 +1,22 @@
+﻿@{
+    var loginProviders = Context.GetExternalAuthenticationTypes();
+    string action = Model.Action;
+    string returnUrl = Model.ReturnUrl;
+    using (Html.BeginForm(action, "Account", new { ReturnUrl = returnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="socialLoginList">
+            <p>
+                @foreach (var p in loginProviders)
+                {
+                    <button type="submit" class="btn btn-primary" id="@p.AuthenticationType"
+                            name="provider" value="@p.AuthenticationType"
+                            title="@(p.Caption)アカウントでログイン"
+                            >
+                        @(p.AuthenticationType)アカウントでログイン
+                    </button>
+                }
+            </p>
+        </div>
+    }
+}

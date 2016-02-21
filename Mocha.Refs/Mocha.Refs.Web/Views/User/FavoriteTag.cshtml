@@ -1,0 +1,49 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model FavoriteTagPageViewModel
+
+@{
+    ViewBag.Title = "お気に入り";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<ul class="nav nav-tabs" style="margin-bottom: 10px;">
+    <li><a href="@Url.Action("FavoriteRefList")">リスト</a></li>
+    <li class="active"><a href="@Url.Action("FavoriteTag")">タグ</a></li>
+    <li><a href="@Url.Action("FavoriteUser")">ユーザー</a></li>
+</ul>
+
+@if (Model.Tags.Count > 0)
+{
+    <div class="row tag-summaries">
+        <div class="tag col-xs-6 col-sm-4 col-md-3" ng-repeat="tag in Model.Tags">
+            <p class="tag-name"><a href="@Url.Content("~/tags/"){{tag.Name|urlencode}}">{{tag.Name}}</a></p>
+            <p>
+                <span class="sub">リスト数 {{tag.RefListCount}}</span>
+            </p>
+            <p>
+                <span class="sub">お気に入り数 {{tag.FavoriteCount}}</span>
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    <p>お気に入り登録されたタグがありません。</p>
+}
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-favorite-tag")
+}
+
+@section scripts {
+    @Html.Partial("_FavoriteTagScripts", Model)
+}

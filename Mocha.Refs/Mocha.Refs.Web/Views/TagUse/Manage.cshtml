@@ -1,0 +1,88 @@
+﻿@using Mocha.Refs.Web.Models.TagUse
+@model ManagePageViewModel
+
+@{
+    ViewBag.Title = "タグ管理";
+}
+
+<div class="page-title">
+    <h1 class="page-header">@(ViewBag.Title)</h1>
+</div>
+
+<div class="actions">
+    <form name="addTagForm" class="form-inline" method="post" ng-submit="addTag($event)" novalidate>
+        <label>新規作成</label>
+        <div class="form-group" ng-class="{'has-error': addTagForm.submitted && addTagForm.tagName.$invalid}">
+            <input class="form-control input-sm" type="text" name="tagName" placeholder="名前を入力"
+                   ng-model="_input.AddingTagName" ng-maxlength="20" required />
+            <span class="help-block" ng-show="addTagForm.submitted && addTagForm.tagName.$error.required">名前を入力してください</span>
+            <span class="help-block" ng-show="addTagForm.submitted && addTagForm.tagName.$error.maxlength">20文字以内で入力してください</span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-sm" title="作成">作成</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-responsive">
+    <table id="lists" class="table table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-8 col-sm-6 col-xs-6">タグ</th>
+                <th class="col-md-2 col-sm-3 col-xs-2">リスト数</th>
+                <th class="col-md-2 col-sm-3 col-xs-4">アクション</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tag-use" ng-repeat="tagUse in Model.TagUses">
+                <td class="tag-use-view">
+                    <a href="@Url.Action("Manage", "List")?tag={{tagUse.Name|urlencode}}">{{tagUse.Name}}</a>
+                </td>
+                <td class="tag-use-view">{{tagUse.RefListCount}}</td>
+                <td class="tag-use-view">
+                    <button class="btn btn-default btn-sm" ng-click="showEditTagName($event, tagUse)">編集</button>
+                    <button class="btn btn-default btn-sm" ng-click="showRemoveTagUseModal($event, tagUse)">削除</button>
+                </td>
+                <td class="tag-use-edit" style="display: none;" colspan="3">
+                    <form name="editTagUseForm" class="form-inline" ng-submit="saveEditTagName($event, tagUse, editTagUseForm.$valid)" novalidate>
+                        <div class="form-group" ng-class="{'has-error': _submitted && editTagUseForm.tagName.$invalid}">
+                            <input class="form-control input-sm" type="text" name="tagName" placeholder="名前を入力"
+                                   ng-model="_input.TagName" ng-maxlength="@(WebConsts.MaxTagNameLength)" required />
+                            <span class="help-block" ng-show="_submitted && editTagUseForm.tagName.$error.required">名前を入力してください</span>
+                            <span class="help-block" ng-show="_submitted && editTagUseForm.tagName.$error.maxlength">
+                                @(WebConsts.MaxTagNameLength)文字以内で入力してください
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm" title="保存">保存</button>
+                            <button type="button" class="btn btn-default btn-sm" title="キャンセル" ng-click="cancelEditTagName($event)">
+                                キャンセル
+                            </button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@if (Model.TagUses.Count() == 0)
+{
+    <p>タグがありません。</p>
+}
+
+
+@Html.Partial("Manage/_RemoveTagUseModal")
+
+@section styles {
+    <style type="text/css">
+        .actions {
+            margin-bottom: 8px;
+        }
+    </style>
+}
+
+
+@section scripts {
+    @Html.Partial("_ManageScripts", Model)
+}

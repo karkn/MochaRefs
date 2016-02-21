@@ -1,0 +1,20 @@
+﻿@helper Render(string url)
+{
+    if (Request.Browser.Browser == "InternetExplorer" && Request.Browser.MajorVersion > 9)
+    {
+        <a href="@(url)"><svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 16 16" width="16" height="16"
+             style="background: url(http://favicon.hatena.ne.jp/?url=@(url))">
+            <defs>
+                <filter id="filtersPicture">
+                    <feColorMatrix type="matrix" values="0.5 0.5 0.5 0 0 0.5 0.5 0.5 0 0 0.5 0.5 0.5 0 0 0 0 0 1 0" />
+                </filter>
+            </defs>
+            <image filter="url(&quot;#filtersPicture&quot;)" x="0" y="0" width="16" height="16" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://favicon.hatena.ne.jp/?url=@(url)" />
+        </svg></a>
+    }
+    else
+    {
+        <a href="@(url)"><img class="grayscale" src="http://favicon.hatena.ne.jp/?url=@(url)" /></a>
+    }
+}

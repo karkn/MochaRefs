@@ -1,0 +1,134 @@
+﻿@import "list-summary-base";
+@import "list-detail-base";
+
+.features-base {
+    text-align: left;
+    margin: 20px;
+
+    h3 {
+        margin-top: 0px;
+        font-size: 18px;
+
+        .glyphicon, .fa {
+            color: rgb(50, 118, 177);
+            font-size: 22px;
+            margin-right: 4px;
+        }
+    }
+}
+
+.herobox {
+    text-align: center;
+    margin-top: 60px;
+
+    h1.page-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .blurb {
+        margin: 20px;
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
+
+    .buttons {
+        margin-bottom: 50px;
+
+        button {
+            margin-right: 20px;
+            margin-bottom: 10px;
+            min-width: 150px;
+        }
+    }
+
+    .features {
+        .features-base();
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+
+    .functions {
+        .features-base();
+        margin-bottom: 60px;
+    }
+
+    .usecases {
+        text-align: left;
+        margin: 35px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+
+        h2 {
+            margin: 0px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            border: none;
+        }
+
+        .usecase {
+            margin-bottom: 30px;
+
+            h3 {
+                margin-top: 0px;
+                font-size: 18px;
+
+                .glyphicon, .fa {
+                    color: rgb(50, 118, 177);
+                    font-size: 22px;
+                    margin-right: 4px;
+                }
+            }
+
+            ul {
+                list-style-type: none;
+                padding-left: 30px;
+
+                .glyphicon, .fa {
+                    margin-right: 4px;
+                }
+            }
+        }
+    }
+}
+
+.sidebar {
+    .socialLoginList {
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.actions {
+    margin-bottom: 8px;
+}
+
+.page-header {
+    margin-bottom: 40px;
+    position: relative;
+
+    small {
+        position: absolute;
+        bottom: 9px;
+        right: 0px;
+    }
+}
+/*@media screen and (min-width: 992px) {
+    .page-header {
+        position: relative;
+
+        small {
+            position: absolute;
+            bottom: 9px;
+            right: 0px;
+        }
+    }
+}*/
+
+.lists-title-header {
+    font-size: large;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+}

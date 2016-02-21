@@ -1,0 +1,36 @@
+datetime,level,user,userHost,userAgent,url,urlReferrer,message,exception
+2014-02-14 01:04:16,ERROR,mkbld,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,/List/MoveRefTo,http://localhost:50226/List/Edit/124,操作に失敗しました: 1 つ以上の外部キーのプロパティが NULL 非許容であるため、リレーションシップを変更できませんでした。リレーションシップを変更すると、関連する外部キーのプロパティは NULL 値に設定されます。外部キーで NULL 値がサポートされていない場合は、新しいリレーションシップを定義するか、外部キーのプロパティに NULL 以外の別の値を割り当てるか、関連のないオブジェクトを削除する必要があります。,"System.InvalidOperationException: 操作に失敗しました: 1 つ以上の外部キーのプロパティが NULL 非許容であるため、リレーションシップを変更できませんでした。リレーションシップを変更すると、関連する外部キーのプロパティは NULL 値に設定されます。外部キーで NULL 値がサポートされていない場合は、新しいリレーションシップを定義するか、外部キーのプロパティに NULL 以外の別の値を割り当てるか、関連のないオブジェクトを削除する必要があります。
+   場所 System.Data.Entity.Core.Objects.ObjectContext.PrepareToSaveChanges(SaveOptions options)
+   場所 System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesInternalAsync>d__2f.MoveNext()
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+   場所 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   場所 Mocha.Refs.Core.Handlers.RefListHandler.<MoveRefToAsync>d__ac.MoveNext() 場所 d:\home\kamo\dev\vs\Mocha.Refs\Mocha.Refs.Core\Handlers\RefListHandler.cs:行 715
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+   場所 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   場所 Mocha.Refs.Web.Controllers.ListController.<MoveRefTo>d__81.MoveNext() 場所 d:\home\kamo\dev\vs\Mocha.Refs\Mocha.Refs.Web\Controllers\ListController.cs:行 498
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+   場所 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   場所 System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   場所 System.Threading.Tasks.TaskHelpersExtensions.ThrowIfFaulted(Task task)
+   場所 System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass48.<InvokeActionMethodFilterAsynchronouslyRecursive>b__41()
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass48.<InvokeActionMethodFilterAsynchronouslyRecursive>b__41()
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass48.<InvokeActionMethodFilterAsynchronouslyRecursive>b__41()
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   場所 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   場所 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)"

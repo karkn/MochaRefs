@@ -1,0 +1,24 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model SummaryPageViewModel
+
+@{
+    ViewBag.Title = "管理";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-summary")
+}
+
+@section scripts {
+    @Html.Partial("_ManageScripts", Model)
+}

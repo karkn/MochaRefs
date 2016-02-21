@@ -1,0 +1,48 @@
+﻿@{
+    var edit = ExpandoObjectUtil.GetValueDefault(Model, "Edit", null);
+    var move = ExpandoObjectUtil.GetValueDefault(Model, "Move", null);
+}
+
+@if (edit == null)
+{
+    <div class="item-action" style="display:none;">
+        <div>
+            <a class="btn btn-default btn-sm" title="他のリストを探す" ng-click="findList(item.Uri, item.Title)"><span class="glyphicon glyphicon-search"></span></a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="item-action" style="display:none;">
+        <div>
+            <a class="btn btn-default btn-sm sortable-handle" title="ドラッグして移動"><span class="glyphicon glyphicon-move"></span></a>
+            <a class="btn btn-default btn-sm" title="編集" ng-click="@(edit)"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default btn-sm" title="削除" ng-click="showRemoveItemModal($event, item)" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></a>
+            <a class="btn btn-default btn-sm" title="次の項目を追加" ng-click="showAddItem($event, item, 'link')"><span class="glyphicon glyphicon-plus"></span></a>
+            @if (move != null) /// moveがある、すなわちリンク
+            {
+                <a class="btn btn-default btn-sm" title="他のリストを探す" ng-click="findList(item.Uri, item.Title)"><span class="glyphicon glyphicon-search"></span></a>
+            }
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    @*<li><a href="" ng-click="showAddItem($event, item, 'link')">リンクを追加</a></li>
+                    <li><a href="" ng-click="showAddItem($event, item, 'heading')">見出しを追加</a></li>
+                    <li><a href="" ng-click="showAddItem($event, item, 'text')">テキストを追加</a></li>
+                    <li class="divider"></li>*@
+                    @if (move != null)
+                    {
+                        <li><a href="" ng-click="@(move)">他のリストに移動</a></li>
+                        <li class="divider"></li>
+                    }
+                    <li><a href="" ng-click="moveItemToTop(item)">一番上に移動</a></li>
+                    <li><a href="" ng-click="moveItemToBottom(item)">一番下に移動</a></li>
+                    <li><a href="" ng-click="moveItemToFiveAhead(item)">5つ上に移動</a></li>
+                    <li><a href="" ng-click="moveItemToFiveBehind(item)">5つ下に移動</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

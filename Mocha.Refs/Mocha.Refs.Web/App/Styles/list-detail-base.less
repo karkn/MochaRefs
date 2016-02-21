@@ -1,0 +1,216 @@
+﻿@import "color-base";
+
+.item-action-base {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    //z-index: 9;
+    background-color: rgb(245, 245, 245);
+    //border: 1px solid @border-color;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        border-color: #999999;
+    }
+
+    .sortable-handle {
+        cursor: move;
+    }
+
+    .btn-default {
+        color: @gray-text-color;
+        border: none;
+        background: transparent;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active,
+        .open .dropdown-toggle.btn-default {
+            color: black;
+            border: none;
+            background: transparent;
+            background-image: none;
+        }
+    }
+
+    .btn-group.open .dropdown-toggle {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .btn:active,
+    .btn.active {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.list-detail {
+    form {
+        font-size: small;
+    }
+
+    .form-control, .btn {
+        font-size: small;
+    }
+
+    .list-items {
+        margin-left: 0px;
+        margin-bottom: 0px;
+        padding-left: 0px;
+
+        .item {
+            list-style: none;
+            padding: 6px 4px 0px 4px;
+            position: relative;
+
+            &:last-child {
+                padding-bottom: 12px;
+
+                .link-separator, .heading-separator, .text-separator {
+                    border: none;
+                    margin-top: 0px;
+                }
+            }
+
+            .item-action {
+                .item-action-base;
+            }
+
+            .item-link {
+                .link-content {
+                    margin-left: 24px;
+                }
+
+                .with-eye-catch {
+                    .link-image {
+                        width: 70px;
+                    }
+
+                    .link-content {
+                        margin-left: 78px;
+                    }
+                }
+
+                .item-title {
+                    font-weight: 700;
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+
+                    a:visited {
+                        color: @visited-text-color;
+                    }
+                }
+
+                .item-comment {
+                    margin-top: 2px;
+                    margin-bottom: 0px;
+                    font-size: small;
+                    color: @text-color;
+                    white-space: pre-wrap;
+                }
+
+                blockquote {
+                    margin: 0px;
+                    padding: 4px;
+                    font-size: small;
+                    color: @gray-text-color;
+
+                    * {
+                        font-size: small;
+                        color: @gray-text-color;
+                        margin: 0px;
+                        margin-bottom: 4px;
+                        padding: 0px;
+                    }
+                }
+
+                .link-plugin-after-title {
+                    color: @gray-text-color;
+                    font-size: small;
+                    font-weight: normal;
+                    margin-left: 4px;
+
+                    a {
+                        color: @gray-text-color;
+                        padding: 0px;
+                    }
+                }
+
+                .link-plugin-append {
+                    margin-top: 8px;
+                    margin-bottom: 0px;
+
+                    pre {
+                        font-size: small;
+                        font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', MeiryoKe_PGothic, Meiryo, sans-serif;
+                        margin-bottom: 0px;
+                    }
+                }
+
+                .link-plugin-item-left img {
+                    border: 1px solid @border-color;
+                    max-width: 70px;
+                    max-height: 70px;
+                    width: auto;
+                    height: auto;
+
+                    &.favicon {
+                        margin-left: 54px;
+                    }
+                }
+            }
+
+            .item-heading h2 {
+                margin: 0px;
+                padding: 0px;
+                border: none;
+                margin-top: 20px;
+                margin-bottom: 12px;
+                font-size: 20px;
+                font-weight: 700;
+            }
+
+            .text-comment {
+                margin-top: 2px;
+                margin-bottom: 12px;
+                font-size: small;
+                color: @text-color;
+                white-space: pre-wrap;
+            }
+
+            .link-separator {
+                margin: 0px;
+                margin-top: 12px;
+                margin-left: -4px;
+                margin-right: -4px;
+                border: none;
+                //border-bottom: 1px dashed @border-color;
+                border-bottom: 1px solid @light-border-color;
+            }
+
+            .heading-separator {
+                margin: 0px;
+                margin-left: -4px;
+                margin-right: -4px;
+                border: none;
+                //border-bottom: 1px solid @dark-border-color;
+                border-bottom: 2px solid @dark-border-color;
+            }
+
+            .text-separator {
+                margin: 0px;
+                margin-left: -4px;
+                margin-right: -4px;
+                border: none;
+                //border-bottom: 1px dashed @border-color;
+                border-bottom: 1px solid @light-border-color;
+            }
+        }
+    }
+}

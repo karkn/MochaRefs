@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Test";
+}
+
+<button ng-click="test()">Get</button>
+<button ng-click="test2()">Get Auth</button>
+
+@section scripts {
+    <script type="text/javascript">
+        function PageController($scope) {
+            $scope.Model = {};
+
+            $scope.test = function (index) {
+                mc.util.get({
+                    url: "/api/users"
+                }).done(function (result) {
+                    debugger;
+                    var data = JSON.parse(result);
+                    alert(data);
+                });
+            };
+
+            $scope.test2 = function (index) {
+                mc.util.get({
+                    url: "/api/users/1",
+                }).done(function (result) {
+                    debugger;
+                    var data = JSON.parse(result);
+                    alert(data);
+                });
+            };
+
+        }
+    </script>
+}

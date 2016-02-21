@@ -1,0 +1,41 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model AddByBookmarkletPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    getModule().directive("mcSelect", mc.angular.SelectDirective);
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._submitted = false;
+        $scope._input = {
+            Title: $scope.Model.Title,
+            Comment: "",
+            RefList: {}
+        };
+        
+        if ($scope.Model.RefLists && $scope.Model.RefLists.length > 0) {
+            // 最新のリストが選択状態になるようにする。
+            // 連続で追加するときの選択の手間を減らす。
+            $scope._input.RefListId = $scope.Model.RefLists[0].Id;
+        }
+
+        $scope.submit = function (event, action) {
+            $scope._submitted = true;
+            if ($scope.form.$invalid) {
+                return;
+            }
+
+            var self = $(event.target);
+            var form = self.closest("form");
+            form.attr("action", action);
+            form[0].submit();
+        };
+
+        $scope.cancel = function (event) {
+            history.back();
+        };
+    }
+
+</script>

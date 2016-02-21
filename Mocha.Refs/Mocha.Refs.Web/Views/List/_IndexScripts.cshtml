@@ -1,0 +1,67 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model IndexPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    var mod = getModule();
+    mod.
+        directive("mcSelect", mc.angular.SelectDirective).
+        directive("mcPagination", mc.angular.PaginationDirective("@Url.Content("~/Content/templates/pagination.html")"));
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {
+            Sort: mc.env.refListSortKinds[0].value
+        };
+        $scope.SortKinds = mc.env.refListSortKinds;
+
+        $scope.Refs = {};
+        $scope.DetailPartView = {};
+        $scope.toggleListDetail = getToggleListDetailFunc($scope);
+
+        $scope.updateCondition = function () {
+            $scope.Condition = null;
+
+            var conds = [];
+
+            var tag = $scope.Model.Tag;
+            if (tag) {
+                if (tag === "$unset") {
+                    conds.push("タグ: 未設定");
+                } else {
+                    conds.push("タグ: " + tag);
+                }
+            }
+
+            if (conds.length > 0) {
+                $scope.Condition = conds.join(", ") + "で絞り込み";
+            }
+        };
+
+        $scope.narrow = function (index) {
+            var data = {
+                tag: $scope.Model.Tag,
+                pageIndex: index,
+                sort: $scope._input.Sort
+            };
+            mc.util.get({
+                url: "@Url.Action("NarrowIndex")",
+                data: data
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    $scope.Model.PageIndex = data.PageIndex;
+                    $scope.Model.PageCount = data.PageCount;
+                    $scope.Model.RefLists = data.RefLists;
+                    $scope.updateCondition();
+                    $("body, html").scrollTop(0);
+                });
+            });
+        };
+
+        $scope.updateCondition();
+    }
+
+
+</script>

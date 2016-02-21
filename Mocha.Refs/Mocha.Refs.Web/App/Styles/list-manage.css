@@ -1,0 +1,38 @@
+.tag-anchor {
+  font-size: small;
+  padding: 2px 5px 2px 5px;
+  margin-right: 4px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #666666;
+  background-color: #f9f9f9;
+  border: 1px solid #e7e7e7;
+}
+.actions {
+  margin-bottom: 0px;
+}
+.tag-use a {
+  font-size: small;
+  padding: 2px 5px 2px 5px;
+  margin-right: 4px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #666666;
+  background-color: #f9f9f9;
+  border: 1px solid #e7e7e7;
+}
+a.list-title {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 700;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 360px;
+}
+@media screen and (min-width: 992px) {
+  a.list-title {
+    max-width: 440px;
+  }
+}

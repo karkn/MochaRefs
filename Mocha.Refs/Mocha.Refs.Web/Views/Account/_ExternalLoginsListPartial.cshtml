@@ -1,0 +1,27 @@
+﻿<p>Refsを利用するにはログインが必要です。</p>
+<p>いつもお使いの以下のサービスのアカウントでログインできます。</p>
+<p class="small">
+    ※Refsにはアカウントを確認するための最小限の情報のみ通知されます。
+</p>
+@{
+    var loginProviders = Context.GetExternalAuthenticationTypes();
+    string action = Model.Action;
+    string returnUrl = Model.ReturnUrl;
+    using (Html.BeginForm(action, "Account", new { ReturnUrl = returnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="socialLoginList">
+            <p>
+                @foreach (var p in loginProviders)
+                {
+                    <button type="submit" class="btn btn-primary" id="@p.AuthenticationType"
+                            name="provider" value="@p.AuthenticationType"
+                            title="@p.Caption アカウントでログイン"
+                            style="margin-bottom: 10px;">
+                        @(p.AuthenticationType) アカウントでログイン
+                        </button>
+                }
+            </p>
+        </div>
+    }
+}

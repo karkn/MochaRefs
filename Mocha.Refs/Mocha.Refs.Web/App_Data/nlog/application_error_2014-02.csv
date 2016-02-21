@@ -1,0 +1,60 @@
+datetime,level,user,userHost,userAgent,url,urlReferrer,message,exception
+2014-02-13 04:27:13,ERROR,,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,/lists/,http://localhost:50226/,型 'Mocha.Refs.Web.Controllers.ListController' のコントローラーを作成するときにエラーが発生しました。コントローラーにパラメーターのないパブリック コンストラクターがあることを確認してください。,"System.InvalidOperationException: 型 'Mocha.Refs.Web.Controllers.ListController' のコントローラーを作成するときにエラーが発生しました。コントローラーにパラメーターのないパブリック コンストラクターがあることを確認してください。 ---> Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = ""Mocha.Refs.Web.Controllers.ListController"", name = ""(none)"".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The type String cannot be constructed. You must configure the container to supply this value.
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving Mocha.Refs.Web.Controllers.ListController,(none)
+  Resolving parameter ""refListViewModelReader"" of constructor Mocha.Refs.Web.Controllers.ListController(Mocha.Refs.Core.Handlers.IUserHandler userHandler, Mocha.Refs.Core.Handlers.ITagHandler tagHandler, Mocha.Refs.Core.Handlers.IRefListHandler refListHandler, Mocha.Refs.Core.Handlers.IFavoriteHandler favoriteHandler, Mocha.Refs.Web.Readers.RefListViewModelReader refListViewModelReader)
+    Resolving Mocha.Refs.Web.Readers.RefListViewModelReader,(none)
+    Resolving parameter ""refListViewModelCache"" of constructor Mocha.Refs.Web.Readers.RefListViewModelReader(Mocha.Refs.Core.Handlers.IRefListHandler refListHandler, Mocha.Common.Cache.IObjectCache`1[[Mocha.Refs.Web.Models.RefListViewModel, Mocha.Refs.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] refListViewModelCache, Mocha.Common.Cache.IObjectCache`1[[System.Collections.Generic.ICollection`1[[Mocha.Refs.Web.Models.RefViewModel, Mocha.Refs.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] refViewModelsCache)
+      Resolving Mocha.Common.Cache.ObjectCache`1[Mocha.Refs.Web.Models.RefListViewModel],(none) (mapped from Mocha.Common.Cache.IObjectCache`1[Mocha.Refs.Web.Models.RefListViewModel], (none))
+      Resolving parameter ""name"" of constructor Mocha.Common.Cache.ObjectCache`1[[Mocha.Refs.Web.Models.RefListViewModel, Mocha.Refs.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]](System.String name)
+        Resolving System.String,(none)
+ ---> System.InvalidOperationException: The type String cannot be constructed. You must configure the container to supply this value.
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.GuardTypeIsNonPrimitive(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.PreBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlanCreatorPolicy.CreatePlan(IBuilderContext context, NamedTypeBuildKey buildKey)
+   場所 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   場所 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   場所 lambda_method(Closure , IBuilderContext )
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   場所 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   場所 lambda_method(Closure , IBuilderContext )
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   場所 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   場所 lambda_method(Closure , IBuilderContext )
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   場所 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部例外スタック トレースの終わり ---
+   場所 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   場所 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, String name, IEnumerable`1 resolverOverrides)
+   場所 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   場所 Microsoft.Practices.Unity.UnityContainerExtensions.Resolve(IUnityContainer container, Type t, ResolverOverride[] overrides)
+   場所 Microsoft.Practices.Unity.Mvc.UnityDependencyResolver.GetService(Type serviceType)
+   場所 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   --- 内部例外スタック トレースの終わり ---
+   場所 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   場所 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   場所 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   場所 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   場所 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   場所 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   場所 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   場所 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   場所 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)"

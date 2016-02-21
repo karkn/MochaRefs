@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+}
+<ul class="nav newly-arrived-ref-lists">
+    @foreach (var list in Model)
+    {
+        <li>
+            <p class="list-title">
+                <a href="@Url.Content("~/lists")/@list.Id">
+                    @list.Title
+                </a>
+            </p>
+            <p class="list-meta">
+                @list.Author.DisplayName - @list.PublishedDate.ToString("yyyy年MM月dd日")
+            </p>
+            @*<a href="@Url.Content("~/lists")/@list.Id">@list.Title<br /></a>*@
+        </li>
+    }
+</ul>

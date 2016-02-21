@@ -1,0 +1,117 @@
+﻿@{
+    var refs = Model.Refs;
+    var edit = ExpandoObjectUtil.GetValueDefault(Model, "IsEdit", false);
+
+    var listItemsAttrs = edit ? "data-ui-sortable=\"sortableOptions\" ng-model=\"Model.Refs\"" : "";
+}
+
+    @if (edit)
+    {
+        <div id="item-add-top" class="item-add" style="display: none;">
+            <p class="toolbar-title">項目を追加</p>
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-default" ng-click="showAddLink($event, item)">リンク</button>
+                <button type="button" class="btn btn-default" ng-click="showAddHeading($event, item)">見出し</button>
+                <button type="button" class="btn btn-default" ng-click="showAddText($event, item)">テキスト</button>
+            </div>
+            <div class="link-add">
+                @Html.Partial("Detail/_EditLinkForm", new { Form = "addLinkForm", Ok = "saveAddLink", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+            <div class="heading-add" style="display:none;">
+                @Html.Partial("Detail/_EditHeadingForm", new { Form = "addHeadingForm", Ok = "saveAddHeading", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+            <div class="text-add" style="display:none;">
+                @Html.Partial("Detail/_EditTextForm", new { Form = "addTextForm", Ok = "saveAddText", Cancel = "hideAddItem" }.ToExpando())
+            </div>
+        </div>
+    }
+
+    <ul class="list-items" @Html.Raw(listItemsAttrs)>
+        <li class="item" ng-repeat="item in @Html.Raw(refs)" data-mc-ref-id="{{item.Id}}">
+            <!-- Link -->
+            <div class="item-link" ng-if="item.Kind == 0">
+                <div class="link-view clearfix" ng-class="{'with-eye-catch': item.plugin.itemLeft}">
+                    <div class="link-image" style="float: left; vertical-align: top; text-align: right;">
+                        <span class="link-plugin-item-left"
+                              ng-show="item.plugin.itemLeft"
+                              ng-bind-html="item.plugin.itemLeft"></span>
+                        <img ng-src="http://favicon.hatena.ne.jp/?url={{item.Uri}}" width="16" height="16"
+                             ng-show="!item.plugin.itemLeft" />
+                    </div>
+                    <div class="link-content">
+                        <p class="item-title">
+                            <a href="{{item.Uri}}" target="_blank">{{item.Title||"@WebConsts.UnsetTitle"}}</a>
+                            <span class="link-plugin-after-title pull-right"
+                                  ng-show="item.plugin.afterTitle.content"
+                                  ng-bind-html="item.plugin.afterTitle.content"></span>
+                        </p>
+                        <p class="item-comment">{{item.Comment||"&nbsp;"}}</p>
+                        <p class="link-plugin-append"
+                           ng-show="item.plugin.append != null"
+                           ng-bind-html="item.plugin.append"></p>
+                    </div>
+
+                    @if (edit)
+                    {
+                        @Html.Partial("Detail/_ItemAction", new
+                           {
+                               Edit = "showEditLink($event, item)",
+                               Move = "moveLink($event, item)"
+                           }.ToExpando())
+                    }
+                    else
+                    {
+                        @Html.Partial("Detail/_ItemAction", new { }.ToExpando())
+                    }
+                </div>
+
+                <!-- link-edit挿入位置 -->
+
+                <hr class="link-separator" />
+            </div>
+
+            <!-- Heading -->
+            <div class="item-heading" ng-if="item.Kind == 10">
+                <div class="heading-view">
+                    <div>
+                        <h2>{{item.Title}}</h2>
+                    </div>
+
+                    @if (edit)
+                    {
+                        @Html.Partial("Detail/_ItemAction", new
+                           {
+                               Edit = "showEditHeading($event, item)"
+                           }.ToExpando())
+                    }
+                </div>
+
+                <!-- heading-edit挿入位置 -->
+
+                <hr class="heading-separator" />
+            </div>
+
+            <!-- Text -->
+            <div class="item-text" ng-if="item.Kind == 11">
+                <div class="text-view">
+                    <p class="text-comment">{{item.Comment}}</p>
+
+                    @if (edit)
+                    {
+                        @Html.Partial("Detail/_ItemAction", new
+                           {
+                               Edit = "showEditText($event, item)"
+                           }.ToExpando())
+                    }
+                </div>
+
+                <!-- text-edit挿入位置 -->
+
+                <hr class="text-separator" />
+            </div>
+
+            <!-- 項目の追加 -->
+            <!-- item-add挿入位置 -->
+            <div class="item-add-anchor hide"></div>
+        </li>
+    </ul>

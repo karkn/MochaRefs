@@ -1,0 +1,80 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model DetailPageViewModel
+
+@{
+    ViewBag.Title = Model.RefList.Title;
+}
+
+<div class="list-header">
+    <div class="list-header-view">
+        <h1 class="page-header">@Model.RefList.Title</h1>
+        <p class="list-comment">@Model.RefList.Comment<p>
+        <p class="list-meta">
+            作成者:  <a href="@Url.Content("~/users")/@Model.RefList.Author.UserName">@Model.RefList.Author.DisplayName</a>
+            | 更新日: @Model.RefList.UpdatedDate
+            | タグ: @string.Join(", ", Model.RefList.TagUses)
+        </p>
+    </div>
+</div>
+
+<div class="list-detail">
+    <ul class="list-items">
+        @foreach (var item in Model.Refs)
+        {
+            <li class="item">
+                @if (item.Kind == Mocha.Refs.Core.DataTypes.RefKind.Link)
+                {
+                    <!-- Link -->
+                    <div class="item-link">
+                        <div class="link-view">
+                            <div>
+                                <h3>@item.Title</h3>
+                                <p class="item-comment">@item.Comment</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (item.Kind == Mocha.Refs.Core.DataTypes.RefKind.Heading)
+                {
+                    <!-- Heading -->
+                    <div class="item-heading">
+                        <div class="heading-view">
+                            <div>
+                                <h2>@item.Title</h2>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (item.Kind == Mocha.Refs.Core.DataTypes.RefKind.Text)
+                {
+                    <!-- Text -->
+                    <div class="item-text">
+                        <div class="text-view">
+                            <p class="text-comment">@item.Comment</p>
+                        </div>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+@section meta {
+    @{
+        var desc = Model.RefList.Comment;
+        var keywords = Model.RefList.TagUses == null ? null : string.Join(",", Model.RefList.TagUses);
+    }
+    @if (!string.IsNullOrWhiteSpace(desc))
+    {
+        <meta name="description" content="@desc" />
+        <meta property="og:description" content="@desc" />
+    }
+    @if (!string.IsNullOrWhiteSpace(keywords))
+    {
+        <meta name="keywords" content="@keywords" />
+    }
+}
+
+@section styles {
+    @Styles.Render("~/Content/list-detail")
+}

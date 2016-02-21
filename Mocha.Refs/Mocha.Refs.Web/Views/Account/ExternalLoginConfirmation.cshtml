@@ -1,0 +1,58 @@
+﻿@model Mocha.Refs.Web.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "アカウントの登録";
+}
+<h1 class="page-header">@ViewBag.Title</h1>
+
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <p class="text-info">
+        外部サービスによって正常に認証されました。<br />
+        ログインを完了するには、Mochaware Refs用のユーザー名と表示名を入力し、
+        登録ボタンをクリックしてください。
+    </p>
+    @Html.ValidationSummary(true)
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName)
+            <span class="help-block">半角英数字が使用できます。すでに使われているユーザー名は使用できません。</span>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+            <span class="help-block">
+                画面に表示される名前です。他の人と同じ表示名でも使用できます。
+            </span>
+        </div>
+    </div>
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>*@
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="登録" />
+        </div>
+    </div>
+}
+
+@section styles {
+    <style type="text/css">
+        input {
+            max-width: 280px;
+        }
+    </style>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

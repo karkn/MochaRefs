@@ -1,0 +1,49 @@
+﻿@using Mocha.Refs.Web.Models.Tag
+@model IndexPageViewModel
+
+@{
+    ViewBag.Title = "タグ";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<div class="clearfix">
+    <div class="pull-right">
+        @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+    </div>
+</div>
+
+<div class="row tag-summaries">
+    <div class="tag col-xs-6 col-md-4" ng-repeat="tag in Model.Tags" ng-show="tag.RefListCount > 0">
+        <p class="tag-name"><a href="@Url.Content("~/tags/"){{tag.Name|urlencode}}">{{tag.Name}}</a></p>
+        <p>
+            <span class="sub">リスト数 {{tag.RefListCount}}</span>
+        </p>
+        <p>
+            <span class="sub">お気に入り数 {{tag.FavoriteCount}}</span>
+        </p>
+        @*<p>
+                @Favorite.Button("", "false", "true", "btn-xs")
+            </p>*@
+    </div>
+</div>
+
+@section sidebar {
+    <h5>おすすめのリスト</h5>
+    @Html.Action("TopViewCountRefLists")
+
+    <h5>新着リスト</h5>
+    @Html.Action("NewlyArrivedRefLists")
+}
+
+@section styles {
+    @Styles.Render("~/Content/tag-index")
+}
+
+@section scripts {
+    @Html.Partial("_IndexScripts", Model)
+}

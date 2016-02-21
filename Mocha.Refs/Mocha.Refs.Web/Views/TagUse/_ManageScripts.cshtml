@@ -1,0 +1,133 @@
+﻿@using Mocha.Refs.Web.Models.TagUse
+@model ManagePageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {};
+
+        // ----------------------------------------
+        // tag-name
+        // ----------------------------------------
+        $scope.closeEditTagName = function (target) {
+            var tagUse = $(target).closest(".tag-use");
+            $scope._input = {};
+            $(".tag-use-edit", tagUse).hide();
+            $(".tag-use-view", tagUse).show();
+            $(".tag-use-view button").attr("disabled", null);
+        }
+
+        $scope.showEditTagName = function (event, item) {
+            $scope._submitted = false;
+            $scope._input.TagName = item.Name;
+
+            var tagUse = $(event.target).closest(".tag-use");
+            $(".tag-use-view", tagUse).hide();
+            $(".tag-use-edit", tagUse).show().focusFirstInput();
+            $(".tag-use-view button").attr("disabled", "disabled");
+        };
+
+        $scope.cancelEditTagName = function (event) {
+            $scope.closeEditTagName(event.target);
+        };
+
+        $scope.saveEditTagName = function (event, item, valid) {
+            var oldName = item.Name;
+            var newName = $scope._input.TagName;
+            if (oldName == newName) {
+                $scope.closeEditTagName(event.target);
+                return;
+            }
+
+            $scope._submitted = true;
+            if (!valid) {
+                return;
+            }
+
+            var data = {
+                id: item.Id,
+                rowVersion: item.RowVersion,
+                oldName: oldName,
+                newName: newName
+            };
+            mc.util.post({
+                url: "@Url.Action("RenameTagUse")",
+                data: JSON.stringify(data)
+
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    item.Tag = data.Tag;
+                    item.Name = data.Name;
+                    item.RowVersion = data.RowVersion;
+                });
+
+                $scope.closeEditTagName(event.target);
+
+            });
+        };
+
+        // ----------------------------------------
+        // add tag use
+        // ----------------------------------------
+        $scope.addTag = function (event) {
+            $scope.addTagForm.submitted = true;
+            if ($scope.addTagForm.$invalid) {
+                return;
+            }
+
+            var data = {
+                name: $scope._input.AddingTagName,
+            };
+            mc.util.post({
+                url: "@Url.Action("AddTagUse")",
+                data: JSON.stringify(data)
+
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    $scope.Model.TagUses = data;
+                });
+                $scope.addTagForm.submitted = false;
+
+                $scope.addTagForm.submitted = false;
+            });
+        };
+
+        // ----------------------------------------
+        // remove tag use
+        // ----------------------------------------
+        $scope.showRemoveTagUseModal = function (event, item) {
+            var modal = $("#remove-tag-use-modal");
+            var ok = $(".btn-primary", modal);
+            ok.off("click");
+            ok.on("click", function (e) {
+                var index = item == null ? -1 : $scope.Model.TagUses.indexOf(item);
+                if (index < 0) {
+                    return;
+                }
+
+                $scope.$apply(function () {
+                    $scope.Model.TagUses.splice(index, 1);
+                });
+
+                var data = {
+                    Id: item.Id,
+                    RowVersion: item.RowVersion
+                };
+
+                mc.util.post({
+                    url: "@Url.Action("RemoveTagUse")",
+                    data: JSON.stringify(data)
+
+                }).done(function (result) {
+                    /// do nothing
+                });
+            });
+
+            modal.modal("show");
+        };
+    }
+</script>

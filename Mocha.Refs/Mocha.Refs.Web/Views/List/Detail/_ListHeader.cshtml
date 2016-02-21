@@ -1,0 +1,71 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model DetailPageViewModel
+
+@{
+    var edit = Model.IsEdit;
+    var canEdit = Model.CanEdit;
+    var auth = Request.IsAuthenticated;
+
+    var author = Model.RefList.Author;
+}
+
+@if (edit)
+{
+    <div class="list-header-view">
+        <h1 class="page-header">{{Model.RefList.Title||"@WebConsts.UnsetTitle"}}</h1>
+        <div class="alert alert-info alert-dismissable" ng-show="isBookmarkletInfoAlertHidden()">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="hideBookmarkletInfoAlert()">&times;</button>
+            ブックマークレットを使うとブラウザで開いているページを簡単にリストに追加できます。
+            <a class="alert-link" href="http://blog.mochaware.jp/refs_help/use_bookmarklet" target="_blank">詳しく見る</a>
+        </div>
+        <div class="alert alert-info alert-dismissable" ng-show="isAddByDnDInfoAlertHidden()">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="hideAddByDnDInfoAlert()">&times;</button>
+            他のアプリやブラウザのお気に入り・履歴ウィンドウからリンクをドラッグ&amp;ドロップしてリストに追加できます。
+            <a class="alert-link" href="http://blog.mochaware.jp/refs_help/add_link_by_dnd" target="_blank">詳しく見る</a>
+        </div>
+
+        <p class="list-comment">{{Model.RefList.Comment||"&nbsp;"}}<p>
+        <p class="list-meta">
+            <span ng-show="Model.RefList.PublishedDate">{{Model.RefList.PublishedDate|date:"yyyy/MM/dd"}} 公開,</span>
+            {{Model.RefList.UpdatedDate|date:"yyyy/MM/dd"}} 更新,
+            @UserName.RenderText(Url, author.UserName, author.DisplayName)
+            <br />
+            @TagUse.RenderForListDetail(Url.Content("~/users/"), "Model.RefList.TagUses", "Model.RefList.Author")
+            <br ng-show="Model.RefList.TagUses && Model.RefList.TagUses.length > 0" />
+            公開URL:  <a href="@Url.AbsoluteUrl("~/lists")/{{Model.RefList.Id}}">@Url.AbsoluteUrl("~/lists")/{{Model.RefList.Id}}</a>
+        </p>
+    </div>
+    <div class="list-header-edit" style="display: none;">
+        @Html.Partial("Detail/_EditListHeaderForm")
+    </div>
+    <div class="list-header-action" style="display:none;">
+        <div>
+            <a class="btn btn-default btn-sm" title="編集" ng-click="showListHeaderEdit($event)"><span class="glyphicon glyphicon-pencil"></span></a>
+            <div class="btn-group btn-group-sm">
+                <a class="btn btn-default btn-sm" title="項目を追加" ng-click="showAddItemTop($event, 'link')"><span class="glyphicon glyphicon-plus"></span></a>
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="" ng-click="showAddItemTop($event, 'link')">リンクを追加</a></li>
+                    <li><a href="" ng-click="showAddItemTop($event, 'heading')">見出しを追加</a></li>
+                    <li><a href="" ng-click="showAddItemTop($event, 'text')">テキストを追加</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="list-header-view">
+        <h1 class="page-header">{{Model.RefList.Title||"@WebConsts.UnsetTitle"}}</h1>
+        <p class="list-comment">{{Model.RefList.Comment||"&nbsp;"}}<p>
+        <p class="list-meta">
+            <span ng-show="Model.RefList.PublishedDate">{{Model.RefList.PublishedDate|date:"yyyy/MM/dd"}} 公開,</span>
+            {{Model.RefList.UpdatedDate|date:"yyyy/MM/dd"}} 更新,
+            @UserName.RenderText(Url, author.UserName, author.DisplayName)
+            <br />
+            @TagUse.RenderForListDetail(Url.Content("~/users/"), "Model.RefList.TagUses", "Model.RefList.Author")
+        </p>
+    </div>
+}

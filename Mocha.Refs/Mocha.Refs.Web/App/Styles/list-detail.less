@@ -1,0 +1,147 @@
+﻿@import "color-base";
+@import "list-detail-base";
+
+@edit-background-color: rgb(255, 255, 204);
+@iconSize: 16px;
+
+@import "tag-base";
+
+.list-header {
+    border-bottom: 1px solid @dark-border-color;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.list-header-action {
+    .item-action-base;
+    background-color: white;
+}
+
+.list-header-view {
+    padding-bottom: 4px;
+}
+
+.list-header-edit {
+    padding: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 20px;
+    background-color: @edit-background-color;
+    border: 1px solid @border-color;
+}
+
+.page-header {
+    font-size: x-large;
+    border-bottom: none;
+}
+
+.page-header-bottom {
+    margin-top: 0px;
+}
+
+.list-meta {
+    color: @dark-gray-text-color;
+    font-size: small;
+    line-height: 2em;
+}
+
+.list-title {
+    border-bottom: 1px solid #ccc;
+}
+
+.list-comment {
+    color: @text-color;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+}
+
+.tag-use {
+    a {
+        .tag-anchor;
+    }
+}
+
+.item .item-add {
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.item-add {
+    border: 1px solid @border-color;
+    background-color: @edit-background-color;
+    font-size: small;
+    padding: 10px;
+
+    p {
+        display: inline-block;
+        margin: 0px;
+    }
+
+    ul {
+        list-style: none;
+        display: inline-block;
+        margin: 0px;
+        margin-left: 1em;
+
+        li {
+            display: inline-block;
+            margin-left: 1em;
+        }
+    }
+}
+
+#item-add-top {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: @edit-background-color;
+    max-width: 600px;
+}
+
+.toolbar-title {
+    font-weight: bold;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.link-edit, .link-add, .heading-edit, .heading-add, .text-edit, .text-add {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.item-hovered {
+    background-color: @hovered-color;
+}
+
+.item-highlight {
+    background-color: rgb(255, 255, 204);
+}
+
+.form-group {
+    margin-bottom: 8px;
+    /*label {
+        display: inline-block;
+        width: 80px;
+    }*/
+}
+
+.ui-sortable-placeholder {
+    border: 1px dashed red;
+    background-color: pink;
+    list-style-type: none;
+}
+
+#default-sidebar-content {
+    .actions {
+        button {
+            min-width: 120px;
+        }
+    }
+}
+#import-sidebar-content {
+    li {
+        a {
+            cursor: move;
+        }
+    }
+}

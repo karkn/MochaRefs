@@ -1,0 +1,30 @@
+﻿@using Mocha.Refs.Web.Models.Home
+@model IndexPageViewModel
+
+@{
+    ViewBag.Title = "Mochaware Refs";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+        <br class="hidden-md hidden-lg" />
+        <small>参考になること、まとめておこう。</small>
+    </h1>
+</div>
+
+<h2 class="lists-title-header">すべての新着リスト</h2>
+@Html.Partial("Index/_RefListSummariesStatic", Model)
+
+@section meta {
+    @{
+        var desc = "Mochaware Refsは参考になる情報をまとめ、オンラインに保存・公開できるサービスです。目的やテーマごとにまとまった情報が集まります。";
+    }
+    <meta name="description" content="@desc" />
+    <meta property="og:description" content="@desc" />
+    <meta name="keywords" content="Mochaware,Refs,Reference,List,Bookmark,Link" />
+}
+
+@section styles {
+    @Styles.Render("~/Content/home-index")
+}

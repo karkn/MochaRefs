@@ -1,0 +1,47 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model FavoriteRefListPageViewModel
+
+@{
+    ViewBag.Title = "お気に入り";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<ul class="nav nav-tabs" style="margin-bottom: 10px;">
+    <li class="active"><a href="@Url.Action("FavoriteRefList")">リスト</a></li>
+    <li><a href="@Url.Action("FavoriteTag")">タグ</a></li>
+    <li><a href="@Url.Action("FavoriteUser")">ユーザー</a></li>
+</ul>
+
+@if (Model.RefLists.Count > 0)
+{
+    <div class="clearfix">
+        <div class="pull-right">
+            @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)", 140)
+        </div>
+    </div>
+
+    @Html.Partial("_FavoriteRefListSummaries", new { }.ToExpando())
+    <div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+}
+else
+{
+    <p>お気に入り登録されたリストがありません。</p>
+}
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-favorite-ref-list")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    @Html.Partial("_FavoriteRefListScripts", Model)
+}

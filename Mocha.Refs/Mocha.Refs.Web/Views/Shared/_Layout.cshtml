@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@(Request.IsHome(Url) ? "Mochaware Refs" : ViewBag.Title + " - Mochaware Refs")</title>
+
+    <meta property="og:title" content="@(Request.IsHome(Url) ? "Mochaware Refs" : ViewBag.Title)" />
+    <meta property="og:type" content="@(Request.IsHome(Url) ? "website" : "article")" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    @*<meta property="og:image" content="images/xxx.png"> 要対応 *@
+    <meta property="og:site_name" content="Mochaware Refs">
+
+    @* og:descriptionは必要であれば各ページで設定する。 *@
+    @RenderSection("meta", required: false)
+
+    @* mkamogm@gmail.comのウェブマスターツールで生成。 *@
+    <meta name="google-site-verification" content="eL3eE7WPIBfPcU_u1Jy4o04_erPDh7iInLOZRv5KCag" />
+
+    @Styles.Render("~/Content/sitecss")
+    @Styles.Render("~/Content/css/select2")
+    @Styles.Render("~/Content/mochacss")
+    @RenderSection("styles", required: false)
+</head>
+<body id="ng-app" ng-app="Refs" ng-controller="PageControllerWrapper">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Content("~/")" ng-click="_goto('@Url.Content("~/")')" class="navbar-brand">Refs</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.Content("~/lists/")" ng-click="_goto('@Url.Content("~/lists/")')"><span class="fa fa-list"></span> <span class="hidden-sm-inline">リスト</span></a></li>
+                    <li><a href="@Url.Action("Index", "Tag")"><span class="glyphicon glyphicon-tag"></span> <span class="hidden-sm-inline">タグ</span></a></li>
+                    @*<li><a href="@Url.Action("Index", "User")"><span class="fa fa-user"></span> ユーザー</a></li>*@
+                    @RenderSection("navbar", required: false)
+                </ul>
+                @Html.Partial("Layout/_SearchForm")
+                @Html.Partial("Layout/_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!--[if lte IE 8]>
+        @Scripts.Render("~/bundles/shim")
+    <![endif]-->
+
+    @Html.Partial("Layout/_EnvScripts")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/mocha-head")
+    @if (IsSectionDefined("angular"))
+    {
+        @RenderSection("angular", required: false)
+    }
+    else
+    {
+        <script type="text/javascript">
+            angular.module("Refs", []);
+        </script>
+    }
+    <script type="text/javascript">@Html.JsMinify(@<text>
+        function getModule() {
+            return angular.module("Refs");;
+        }
+        function getPageScope() {
+            return angular.element($("body")).scope();
+        }
+
+        (function () {
+            var mod = getModule();
+            mod.factory("$exceptionHandler", mc.angular.DefaultExceptionHandler);
+            mod.filter("urlencode", mc.angular.UrlEncodeFilter);
+        })();
+    </text>)</script>
+
+    <div class="container body-content" ng-cloak>
+        @if (IsSectionDefined("sidebar"))
+        {
+            <div class="row">
+                <div class="col-md-9 col-sm-8 main-content">
+                    @RenderBody()
+                </div>
+                <div id="sidebar" class="col-md-3 col-sm-4 sidebar">
+                    @RenderSection("sidebar", false)
+                </div>
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
+        <hr />
+        <footer>
+            <p>&copy; 2014 - Mocha</p>
+        </footer>
+    </div>
+
+    @Html.Partial("Layout/_InProcessAlert")
+    @Html.Partial("Layout/_ErrorModal")
+
+    @Scripts.Render("~/bundles/select")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/mocha")
+    <script type="text/javascript">@Html.JsMinify(@<text>
+        function PageControllerWrapper($scope) {
+            $scope._layout = {
+                TextSearch: "",
+                search: function () {
+                    $scope._layout.TextSearch = mc.util.cutString($scope._layout.TextSearch, mc.env.maxTextSearchLength);
+                    window.location.href = "@Url.Content("~/search")?q=" + encodeURIComponent($scope._layout.TextSearch);
+                }
+            };
+
+            $scope._env = mc.env;
+            $scope._goto = function (url) {
+                window.location.href = url;
+            };
+
+            if (window.PageController) {
+                PageController($scope);
+            }
+        }
+    </text>)</script>
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">@Html.JsMinify(@<text>
+        $(function () {
+            mc.env.initialized = true;
+        });
+    </text>)</script>
+</body>
+</html>

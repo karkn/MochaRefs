@@ -1,0 +1,21 @@
+﻿@{
+    var form = Model.Form;
+    var ok = Model.Ok;
+    var cancel = Model.Cancel;
+}
+
+<form name="@(form)" novalidate>
+    <div class="form-group" ng-class="{'has-error': _submitted && @(form).comment.$invalid}">
+        <label>テキスト <span class="required-indicator">*</span></label>
+        <textarea class="form-control" name="comment" rows="3" placeholder="テキストを入力"
+                  ng-model="_input.Comment" ng-maxlength="@(WebConsts.MaxRefTextLength)" required></textarea>
+        <span class="help-block" ng-show="_submitted && @(form).comment.$error.required">テキストを入力してください</span>
+        <span class="help-block" ng-show="_submitted && @(form).comment.$error.maxlength">
+            @(WebConsts.MaxRefTextLength)文字以内で入力してください
+        </span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-sm" title="保存" ng-click="@(ok)($event, @(form).$valid)">保存</button>
+        <button type="button" class="btn btn-default btn-sm" title="キャンセル" ng-click="@(cancel)($event)">キャンセル</button>
+    </div>
+</form>

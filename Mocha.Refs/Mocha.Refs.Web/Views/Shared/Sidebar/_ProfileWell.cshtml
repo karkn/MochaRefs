@@ -1,0 +1,25 @@
+﻿@{
+    var id = (string)ViewBag.Id;
+    var userName = (string)ViewBag.UserName;
+    var displayName = (string)ViewBag.DisplayName;
+}
+ <div class="well well-sm profile-well">
+    @if (Url.ExistsSmallProfileImage(id, userName))
+    {
+        <a href="@Url.Content("~/users/")@userName">
+            <img src="@(Url.SmallProfileImage(id, userName))" height="48" width="48" />
+        </a>
+        <a href="@Url.Content("~/users/")@userName">
+            @displayName
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Content("~/users/")@userName">
+            <img src="@(Url.Content("~/Images/user.jpg"))" height="48" width="48" />
+        </a>
+        <a href="@Url.Content("~/users/")@userName">
+            @displayName
+        </a>
+    }
+</div>

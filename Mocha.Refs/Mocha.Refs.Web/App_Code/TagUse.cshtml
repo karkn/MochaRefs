@@ -1,0 +1,15 @@
+﻿@helper Render(string baseUrl, string tagUses) {
+    var existsTagUses = string.Format("{0} && {0}.length > 0", tagUses);
+    
+    <span ng-show="@existsTagUses" ng-repeat="tagUse in @(tagUses)">
+        <span class="tag-use"><a href="@(baseUrl){{tagUse|urlencode}}">{{tagUse}}</a></span>
+    </span>
+}
+
+@helper RenderForListDetail(string baseUrl, string tagUses, string author) {
+    var existsTagUses = string.Format("{0} && {0}.length > 0", tagUses);
+    
+    <span ng-show="@existsTagUses" ng-repeat="tagUse in @(tagUses)">
+        <span class="tag-use"><a href="@(baseUrl){{@(author).UserName}}?tag={{tagUse|urlencode}}">{{tagUse}}</a></span>
+    </span>
+}

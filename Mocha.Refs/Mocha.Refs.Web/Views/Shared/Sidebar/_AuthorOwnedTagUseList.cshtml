@@ -1,0 +1,11 @@
+﻿@{
+    var ownedTagUses = Model.OwnedTagUses; // Model.OwnedTagUses
+}
+<ul class="nav">
+    <li ng-repeat="tag in @(ownedTagUses)" ng-show="tag.PublishedRefListCount > 0">
+        <a href="?tag={{tag.Name|urlencode}}">
+            {{tag.Name}}
+            <span class="pull-right" style="color: rgb(153, 153, 153);">{{tag.PublishedRefListCount}}</span>
+        </a>
+    </li>
+</ul>

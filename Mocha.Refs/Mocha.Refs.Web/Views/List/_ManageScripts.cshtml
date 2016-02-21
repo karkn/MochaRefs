@@ -1,0 +1,113 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model ManagePageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    var mod = getModule();
+    mod.
+        directive("mcSelect", mc.angular.SelectDirective).
+        directive("mcPagination", mc.angular.PaginationDirective("@Url.Content("~/Content/templates/pagination.html")")).
+        filter("mcPublishingStatus", mc.angular.PublishingStatusFilter);
+        
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {
+            TitleSearch: $scope.Model.TitleSearch,
+            TagUse: $scope.Model.TagUse,
+            PublishingStatusCondition: mc.env.publishingStatusConditionKinds[0].value,
+            Sort: mc.env.refListSortKinds[1].value
+        };
+        $scope.publishingStatusConditionKinds = mc.env.publishingStatusConditionKinds;
+        $scope.SortKinds = mc.env.refListSortKinds;
+
+        $scope.createRefList = function (url) {
+            location.href = url;
+        };
+
+        $scope.narrow = function (index) {
+            $scope._input.TitleSearch = mc.util.cutString($scope._input.TitleSearch, mc.env.maxTitleSearchLength);
+            var data = {
+                titleSearch: $scope._input.TitleSearch,
+                tag: $scope._input.TagUse,
+                publishingStatusCondition: $scope._input.PublishingStatusCondition,
+                pageIndex: index,
+                sort: $scope._input.Sort
+            };
+            mc.util.get({
+                url: "@Url.Action("NarrowManage")",
+                data: data
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    $scope.Model.PageIndex = data.PageIndex;
+                    $scope.Model.PageCount = data.PageCount;
+                    $scope.Model.RefLists = data.RefLists;
+                    $("body, html").scrollTop(0);
+                });
+            });
+        };
+
+        // ----------------------------------------
+        // remove ref list
+        // ----------------------------------------
+        $scope.showRemoveRefListModal = function (event, list) {
+            var modal = $("#remove-ref-list-modal");
+            var ok = $(".btn-primary", modal);
+            ok.off("click");
+            ok.on("click", function (e) {
+                var index = list == null ? -1 : $scope.Model.RefLists.indexOf(list);
+                if (index < 0) {
+                    return;
+                }
+
+                $scope.$apply(function () {
+                    $scope.Model.RefLists.splice(index, 1);
+                });
+
+                var data = {
+                    Id: list.Id,
+                    RowVersion: list.RowVersion
+                };
+
+                mc.util.post({
+                    url: "@Url.Action("Remove")",
+                    data: JSON.stringify(data)
+
+                }).done(function (result) {
+                    /// do nothing
+                });
+            });
+
+            modal.modal("show");
+        };
+
+        // ----------------------------------------
+        // checkbox
+        // ----------------------------------------
+        $scope.toggleCheckboxShown = function () {
+            var ca = $("#check-all-col");
+            if (ca.is(":visible")) {
+                ca.hide();
+                $("#lists .checkbox-col").hide();
+            } else {
+                ca.show();
+                $("#lists .checkbox-col").show();
+            }
+        };
+
+        $scope.toggleAllChecked = function () {
+            var ca = $("#check-all-col");
+            if ($scope._input.IsAllChecked) {
+                for (var i = 0; i < $scope.Model.RefLists.length; ++i) {
+                    $scope.Model.RefLists[i].IsChecked = true;
+                }
+            } else {
+                for (var i = 0; i < $scope.Model.RefLists.length; ++i) {
+                    $scope.Model.RefLists[i].IsChecked = false;
+                }
+            }
+        };
+    }
+</script>

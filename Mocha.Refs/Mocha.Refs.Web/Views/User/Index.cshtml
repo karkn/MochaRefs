@@ -1,0 +1,30 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model IndexPageViewModel
+
+@{
+    ViewBag.Title = "ユーザー";
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<div class="row">
+    <div class="user col-xs-6 col-sm-4 col-md-3" ng-repeat="user in Model.Users">
+        <a href="@Url.Content("~/users")/{{user.UserName}}">{{user.DisplayName}}</a>
+    </div>
+</div>
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-index")
+}
+
+@section scripts {
+    @Html.Partial("_IndexScripts", Model)
+}

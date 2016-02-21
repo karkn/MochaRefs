@@ -1,0 +1,113 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model ManagePageViewModel
+
+@{
+    ViewBag.Title = "リスト管理";
+}
+
+<div class="page-title">
+    <h1 class="page-header">@(ViewBag.Title)</h1>
+</div>
+
+<div class="actions">
+    <div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            <button type="button" class="btn btn-primary btn-sm" title="リストを作成" ng-click="createRefList('@Url.Action("Create")')"><span class="glyphicon glyphicon-pencil"></span> リストを作成</button>
+        </div>
+    </div>
+
+    <form class="form-inline clearfix" ng-submit="narrow(1)">
+        @*<div class="form-group">
+                <button type="button" class="btn btn-default btn-sm" title="複数選択" ng-click="toggleCheckboxShown()"><span class="glyphicon glyphicon-check"></span></button>
+            </div>*@
+        <div class="form-group">
+            <input class="form-control input-sm" type="search" name="titleSearch" ng-model="_input.TitleSearch" placeholder="タイトルで絞り込み" />
+        </div>
+
+        <div class="form-group">
+            <select class="input-sm" name="tagUse"
+                    data-mc-select ng-model="_input.TagUse"
+                    data-style="btn-default btn-sm" data-width="200px"
+                    data-mc-array="Model.OwnedTagUses" data-mc-value="" data-mc-text="">
+                <option value="">タグ指定なし</option>
+                <option value="$unset">未設定</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select class="input-sm"
+                    data-mc-select ng-model="_input.PublishingStatusCondition"
+                    data-style="btn-default btn-sm" data-width="120px"
+                    data-mc-array="publishingStatusConditionKinds" data-mc-value="value" data-mc-text="text"></select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-sm" title="検索"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+
+        <div class="pull-right">
+            @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+        </div>
+    </form>
+</div>
+
+<div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+
+<div class="table-responsive">
+    <table id="lists" class="table table-hover">
+        <thead>
+            <tr>
+                @*<th id="check-all-col" style="display:none;"><input type="checkbox" id="check-all" ng-change="toggleAllChecked()" ng-model="_input.IsAllChecked"/></th>*@
+                <th class="col-xs-6 hidden-xs">
+                    タイトル/タグ
+                </th>
+                @*<th class="col-xs-1 hidden-xs">状態</th>*@
+                <th class="col-xs-1 hidden-xs">状態</th>
+                <th class="col-xs-2 hidden-xs">
+                    公開日/更新日
+                </th>
+                <th class="col-xs-2 hidden-xs">統計</th>
+                <th class="col-xs-1 hidden-xs">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="list in Model.RefLists">
+                @*<td class="checkbox-col" style="display:none;"><input type="checkbox" class="selected" ng-model="list.IsChecked" /></td>*@
+                <td>
+                    <a class="list-title" href="@Url.Action("Edit", "List")/{{list.Id}}">{{list.Title||"@WebConsts.UnsetTitle"}}</a><br />
+                    @TagUse.Render(Url.Content("~/List/Manage?tag="), "list.TagUses")
+                </td>
+                <td class="small" >{{list.PublishingStatus|mcPublishingStatus}}</td>
+                <td class="small">
+                    <span ng-show="list.PublishedDate">{{list.PublishedDate|date:"yyyy/MM/dd"}} 公開<br /></span>
+                    {{list.UpdatedDate|date:"yyyy/MM/dd"}} 更新
+                </td>
+                <td class="small">
+                    <span class="glyphicon glyphicon-star"></span> {{list.Statistics.FavoriteCount}}
+                    <span class="glyphicon glyphicon-search"></span> {{list.Statistics.ViewCount}}
+                    <span class="glyphicon glyphicon-link"></span> {{list.Statistics.LinkCount}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default btn-sm" title="削除" ng-click="showRemoveRefListModal($event, list)">削除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@if (Model.RefLists.Count == 0)
+{
+    <p>リストがありません。</p>
+}
+
+<div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+
+@Html.Partial("Manage/_RemoveRefListModal")
+
+@section styles {
+    @Styles.Render("~/Content/list-manage")
+}
+
+@section scripts {
+    @Html.Partial("_ManageScripts", Model)
+}

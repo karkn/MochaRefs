@@ -1,0 +1,133 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model DetailPageViewModel
+
+@{
+    var edit = Model.IsEdit;
+    var canEdit = Model.CanEdit;
+    var favored = Model.IsFavored;
+    var mobile = Html.IsMobileDevice(Request).ToString() == "true";
+
+    var id = Model.RefList.Id.ToString();
+    var title =  Model.RefList.Title;
+    var author = Model.RefList.Author;
+    var auth = Request.IsAuthenticated;
+}
+
+<div id="default-sidebar-content">
+    @Html.Partial(
+        "Sidebar/_AuthorProfileWithoutFavoriteButtonWell",
+        new {
+            Id = author.Id.ToString(), UserName = author.UserName, DisplayName = author.DisplayName,
+        }.ToExpando())
+
+    @if (edit)
+    {
+        <h5>公開状態</h5>
+        <select id="publishing-status" class="form-control" name="PublishingStatus" data-width="90px"
+                data-mc-select ng-model="Model.RefList.PublishingStatus" data-style="btn-primary"
+                data-mc-array="publishingStatusOpts" data-mc-value="Value" data-mc-text="Text"></select>
+    }
+    @if (auth)
+    {
+        <h5>アクション</h5>
+        <div class="actions">
+            @Favorite.Button("toggleFavorite()", "Model.IsFavored", "!Model.IsFavored")
+            @if (edit)
+            {
+                <button type="button" class="btn btn-default navbar-btn" ng-click="showAddItemTop($event, 'link')">項目を追加</button>
+                if (!mobile)
+                {
+                    <button type="button" class="btn btn-default navbar-btn" ng-click="showImportSidebarContent()">Pocketから追加</button>
+                }
+            }
+            else if (canEdit)
+            {
+                <button type="button" class="btn btn-default navbar-btn"
+                        onclick="javascript:window.location.href='@Url.Action("Edit", new { Id = Model.RefList.Id })'">
+                    編集
+                </button>
+            }
+        </div>
+    }
+
+    <h5>表示項目</h5>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['google'].enabled" ng-click="togglePlugin('google')">Google Plus
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['twitter'].enabled" ng-click="togglePlugin('twitter')">Twitter
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['facebook'].enabled" ng-click="togglePlugin('facebook')">Facebook
+        </label>
+    </div>
+    @*<div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['hatenaBookmark'].enabled" ng-click="togglePlugin('hatenaBookmark')">はてなブックマーク (users)
+        </label>
+    </div>*@
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['image'].enabled" ng-click="togglePlugin('image')">アイキャッチ画像
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox-inline"
+                   ng-model="plugins['description'].enabled" ng-click="togglePlugin('description')">説明
+        </label>
+    </div>
+
+    <h5>共有</h5>
+    <a href="@Url.GooglePlus(id)" title="Google+で共有"
+       style="margin-right: 4px;"><span class="fa fa-google-plus-square fa-2x"></span></a>
+    <a href="@Url.Twitter(id, title)" title="Twitterで共有"
+       style="margin-right: 4px;"><span class="fa fa-twitter-square fa-2x"></span></a>
+    <a href="@Url.Facebook(id)" title="Facebookで共有"><span class="fa fa-facebook-square fa-2x"></span></a>
+
+    <h5>タグ</h5>
+    <p ng-show="!Model.RefList.TagUses||Model.RefList.TagUses.length === 0">設定されていません</p>
+    <ul class="nav" ng-show="Model.RefList.TagUses&&Model.RefList.TagUses.length > 0">
+        <li ng-repeat="tagUse in Model.RefList.TagUses"><a href="@Url.Content("~/users/" + author.UserName +"?tag="){{tagUse|urlencode}}">{{tagUse}}</a></li>
+    </ul>
+
+
+    <h5>アウトライン</h5>
+    <p ng-show="!existsHeading()">見出しがありません</p>
+    <ul class="nav" ng-show="existsHeading()">
+        <li ng-repeat="heading in getHeadings()"><a href="" ng-click="gotoItem(heading)">{{heading.Title}}</a></li>
+    </ul>
+
+    @* todo: リストに追加、vote、コメント、関連するリスト *@
+</div>
+<div id="import-sidebar-content" style="display: none;">
+    <h5>Pocketから追加</h5>
+    <div ng-if="!PocketItems">
+        <p class="small">情報を取得中...</p>
+    </div>
+    <div ng-if="PocketItems === 'unconfigured'">
+        <p>Pocket連携が未設定です。Pocket連携の設定をしてください。</p>
+        <button type="button" class="btn btn-primary navbar-btn" ng-click="showPocketAuthModal()">Pocket連携の設定</button>
+        <button type="button" class="btn btn-default navbar-btn" ng-click="hideImportSidebarContent()">閉じる</button>
+    </div>
+    <div ng-if="PocketItems && PocketItems !== 'unconfigured'">
+        <div class="clearfix">
+            <button type="button" class="btn btn-default navbar-btn btn-sm pull-right" ng-click="hideImportSidebarContent()">閉じる</button>
+        </div>
+        <ul class="nav">
+            <li class="imported-item" ng-repeat="pocketItem in PocketItems">
+                <a href="{{pocketItem.Uri}}" target="_blank" draggable="true"><span class="glyphicon glyphicon-link"></span> {{pocketItem.Title}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

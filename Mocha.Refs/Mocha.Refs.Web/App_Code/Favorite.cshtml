@@ -1,0 +1,10 @@
+﻿@helper Button(string toggleFunc, string onCond, string offCond, string additionalClass = "")
+{
+    var classValue = "btn navbar-btn btn-default " + additionalClass;
+    
+    <button type="button" class="@(classValue)" ng-click="@(toggleFunc)" >
+        <span class="glyphicon glyphicon-star" ng-show="@(onCond)" style="color: orange;"></span>
+        <span class="glyphicon glyphicon-star-empty" ng-show="@(offCond)" style="color: orange;"></span>
+        お気に入り
+    </button>
+}

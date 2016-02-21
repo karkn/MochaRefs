@@ -1,0 +1,47 @@
+﻿<script type="text/javascript">@Html.JsMinify(@<text>
+    var mc = {
+        env: {
+            basePath: "@Url.Content("~/")",
+            requestUri: "@Request.Url.AbsoluteUri",
+            initialized: false, // _Layoutの最後でtrueになる
+            isDebug: [@(Html.IsDebug())][0],
+            isMobile: [@Html.IsMobileDevice(Request)][0],
+
+            utilUrlBase: "@(Html.IsDebug().ToString() == "true" ? "http://localhost:63966" : "http://util.mochaware.jp")",
+
+            maxTextSearchLength: [@(WebConsts.MaxTextSearchLength)][0],
+            maxTitleSearchLength: [@(WebConsts.MaxTitleSearchLength)][0],
+
+            linkPluginEnabledCookieKeyPrefix: "LPE_",
+            bookmarkletInfoAlertHiddenCookieKey: "BIAH_",
+            addByDnDInfoAlertHiddenCookieKey: "ABDIAH_",
+            addFromPocketInfoAlertHiddenCookieKey: "AFPIAH_",
+
+            refListSortKinds: [
+                { text: "公開日", value: 5 },
+                { text: "更新日", value: 0 }
+                @* ,{ text: "お気に入り数", value: 4 } *@
+            ],
+
+            tagSortKinds: [
+                { text: "リスト数", value: 0 },
+                @* { text: "お気に入り数", value: 1 }, *@
+                { text: "名前", value: 2 }
+            ],
+
+            favoriteRefListSortKinds: [
+                { text: "お気に入り登録日", value: 4 },
+                @*{ text: "お気に入り数", value: 5 }, *@
+                { text: "リスト公開日", value: 6 },
+                { text: "リスト更新日", value: 0 }
+            ],
+
+            publishingStatusConditionKinds: [
+                { text: "状態指定なし", value: 0 },
+                { text: "公開", value: 1 },
+                { text: "非公開", value: 2 },
+                { text: "下書き", value: 3 }
+            ]
+        }
+    };
+</text>)</script>

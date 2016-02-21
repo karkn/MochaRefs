@@ -1,0 +1,74 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model CreatePageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    getModule().
+        directive("mcSelect", mc.angular.SelectDirective).
+        directive("mcTagInput", ["$parse", mc.angular.TagInputDirective]);
+
+    function appendTagUsesInputs(form, tagUses) {
+        if (!tagUses || tagUses.length === 0) {
+            return;
+        }
+
+        var children = "";
+        for (var i = 0; i < tagUses.length; ++i) {
+            children += "<input type='hidden'/ name='TagUses[" + i.toString() + "]' value='" +
+                mc.util.htmlEncode(tagUses[i]) + "' />";
+        }
+        form.append(children);
+    }
+
+    function toString(value) {
+        if (value) {
+            return mc.util.htmlEncode(value.toString());
+        } else {
+            return "";
+        }
+    }
+
+    function appendRefsInputs(form, refs) {
+        if (!refs || refs.length === 0) {
+            return;
+        }
+        var children = "";
+        for (var i = 0; i < refs.length; ++i) {
+            children += "<input type='hidden'/ name='Refs[" + i.toString() + "].Kind' value='" + refs[i].Kind + "' />";
+            children += "<input type='hidden'/ name='Refs[" + i.toString() + "].Uri' value='" + toString(refs[i].Uri) + "' />";
+            children += "<input type='hidden'/ name='Refs[" + i.toString() + "].Title' value='" + toString(refs[i].Title) + "' />";
+            children += "<input type='hidden'/ name='Refs[" + i.toString() + "].Comment' value='" + toString(refs[i].Comment) + "' />";
+        }
+        form.append(children);
+    }
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._submitted = false;
+        $scope._input = {};
+
+        $scope.submit = function (event, action, valid) {
+            $scope._submitted = true;
+            if (!valid) {
+                return;
+            }
+
+            var self = $(event.target);
+            var form = self.closest("form");
+            form.attr("action", action);
+            appendTagUsesInputs(form, $scope._input.TagUses);
+            appendRefsInputs(form, $scope.Model.Refs);
+            form[0].submit();
+        }
+
+        $scope.cancel = function (event) {
+            history.back();
+        };
+    }
+
+    $(function () {
+        $("form[name=createListForm]").focusFirstInput();
+    });
+
+</script>

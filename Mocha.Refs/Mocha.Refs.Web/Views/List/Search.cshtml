@@ -1,0 +1,47 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model SearchPageViewModel
+
+@{
+    ViewBag.Title = "リストの検索";
+}
+
+<div class="page-title">
+    <h1 class="page-header">@(ViewBag.Title)</h1>
+</div>
+
+<div class="actions">
+    <form class="form-inline" ng-submit="search(1)">
+        <div class="form-group">
+            <input class="form-control input-sm" type="search" name="search" ng-model="_input.TextSearch" placeholder="リストを検索" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-sm" title="検索"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </form>
+</div>
+
+<h2 class="search-result-title">検索結果</h2>
+<div ng-show="Model.RefLists.length > 0">
+    @Html.Partial("_RefListSummaries", new { }.ToExpando())
+    <div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="search"></div>
+</div>
+<div ng-show="!Model.RefLists || Model.RefLists.length === 0">
+    <p>リストが見つかりませんでした。</p>
+</div>
+
+@section sidebar {
+    <h5>おすすめのリスト</h5>
+    @Html.Action("TopViewCountRefLists")
+
+    <h5>新着リスト</h5>
+    @Html.Action("NewlyArrivedRefLists")
+}
+
+@section styles {
+    @Styles.Render("~/Content/list-search")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    @Html.Partial("_SearchScripts", Model)
+}

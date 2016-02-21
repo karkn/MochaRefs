@@ -1,0 +1,58 @@
+﻿@using Mocha.Refs.Web.Models.Tag
+@model DetailPageViewModel
+
+@{
+    ViewBag.Title = Model.Tag.Name;
+    var auth = Request.IsAuthenticated;
+}
+
+<div class="page-title">
+    <h1 class="page-header">
+        @(ViewBag.Title)
+    </h1>
+</div>
+
+<h2 class="condition" ng-show="Condition">{{Condition}}</h2>
+
+<div class="clearfix">
+    <div class="pull-right">
+        @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+    </div>
+</div>
+
+@Html.Partial("_RefListSummaries", new { }.ToExpando())
+
+<div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+
+@section sidebar {
+    <div id="default-sidebar-content">
+        @if (auth)
+        {
+            <h5>@Model.Tag.Name</h5>
+            @Favorite.Button("toggleFavorite()", "Model.IsFavored", "!Model.IsFavored")
+        }
+
+        <h5>タイトル</h5>
+        <div>
+            @Narrow.TitleForm("narrow(1)", "Model.TitleSearch")
+        </div>
+    </div>
+}
+
+@section styles {
+    @Styles.Render("~/Content/user-detail")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    <script type="text/javascript">
+        mc.page = {
+            model: [@Html.Raw(Model.ToJson())][0],
+            actions: {
+                addFavorite: "@Url.Action("AddFavoriteTag", "Tag")",
+                removeFavorite: "@Url.Action("RemoveFavoriteTag", "Tag")",
+            }
+        };
+    </script>
+    @Html.Partial("_DetailScripts", Model)
+}

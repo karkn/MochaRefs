@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{62720D3A-DBD8-4436-BF7D-C0663F2694B7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mocha.Refs.Data</RootNamespace>
+    <AssemblyName>Mocha.Refs.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mapping\RefListMap.cs" />
+    <Compile Include="Mapping\TagStatisticsMap.cs" />
+    <Compile Include="Mapping\TagUseStatisticsMap.cs" />
+    <Compile Include="Mapping\RefListStatisticsMap.cs" />
+    <Compile Include="Mapping\RefMap.cs" />
+    <Compile Include="Mapping\TagMap.cs" />
+    <Compile Include="Mapping\FavoriteMap.cs" />
+    <Compile Include="Mapping\TagUseMap.cs" />
+    <Compile Include="Mapping\UserDataMap.cs" />
+    <Compile Include="Mapping\UserLoginMap.cs" />
+    <Compile Include="Mapping\UserMap.cs" />
+    <Compile Include="Migrations\201312040150214_InitialCreate.cs" />
+    <Compile Include="Migrations\201312040150214_InitialCreate.Designer.cs">
+      <DependentUpon>201312040150214_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312100600138_AddUserDisplayName.cs" />
+    <Compile Include="Migrations\201312100600138_AddUserDisplayName.Designer.cs">
+      <DependentUpon>201312100600138_AddUserDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312100805053_AddMochaUserDisplayName.cs" />
+    <Compile Include="Migrations\201312100805053_AddMochaUserDisplayName.Designer.cs">
+      <DependentUpon>201312100805053_AddMochaUserDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211432319_ChangeRefListTagUsesColumns.cs" />
+    <Compile Include="Migrations\201312211432319_ChangeRefListTagUsesColumns.Designer.cs">
+      <DependentUpon>201312211432319_ChangeRefListTagUsesColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312211835500_ChangeRefListStaticsRequiredPrincipal.cs" />
+    <Compile Include="Migrations\201312211835500_ChangeRefListStaticsRequiredPrincipal.Designer.cs">
+      <DependentUpon>201312211835500_ChangeRefListStaticsRequiredPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312230445036_AddFavorite.cs" />
+    <Compile Include="Migrations\201312230445036_AddFavorite.Designer.cs">
+      <DependentUpon>201312230445036_AddFavorite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312230944203_ChangeRefListStaticsRequiredDependent.cs" />
+    <Compile Include="Migrations\201312230944203_ChangeRefListStaticsRequiredDependent.Designer.cs">
+      <DependentUpon>201312230944203_ChangeRefListStaticsRequiredDependent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312251003432_AddRefListStatisticsRefListCoutAndFavoriteCount.cs" />
+    <Compile Include="Migrations\201312251003432_AddRefListStatisticsRefListCoutAndFavoriteCount.Designer.cs">
+      <DependentUpon>201312251003432_AddRefListStatisticsRefListCoutAndFavoriteCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312260705380_ChangeFavriteUserToOwner.cs" />
+    <Compile Include="Migrations\201312260705380_ChangeFavriteUserToOwner.Designer.cs">
+      <DependentUpon>201312260705380_ChangeFavriteUserToOwner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312260802173_AddFavoriteUserAndTag.cs" />
+    <Compile Include="Migrations\201312260802173_AddFavoriteUserAndTag.Designer.cs">
+      <DependentUpon>201312260802173_AddFavoriteUserAndTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312270503336_AddTagDisplayNameAndTagUseDisplayName.cs" />
+    <Compile Include="Migrations\201312270503336_AddTagDisplayNameAndTagUseDisplayName.Designer.cs">
+      <DependentUpon>201312270503336_AddTagDisplayNameAndTagUseDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312270524372_ChangeTagUseDisplayNameToName.cs" />
+    <Compile Include="Migrations\201312270524372_ChangeTagUseDisplayNameToName.Designer.cs">
+      <DependentUpon>201312270524372_ChangeTagUseDisplayNameToName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312270617044_RemoveTagDisplayName.cs" />
+    <Compile Include="Migrations\201312270617044_RemoveTagDisplayName.Designer.cs">
+      <DependentUpon>201312270617044_RemoveTagDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312271347145_AddTagUseStatistics.cs" />
+    <Compile Include="Migrations\201312271347145_AddTagUseStatistics.Designer.cs">
+      <DependentUpon>201312271347145_AddTagUseStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312271523367_FixTagUseStatisticsRefListCount.cs" />
+    <Compile Include="Migrations\201312271523367_FixTagUseStatisticsRefListCount.Designer.cs">
+      <DependentUpon>201312271523367_FixTagUseStatisticsRefListCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312280311571_AddTagStatistics.cs" />
+    <Compile Include="Migrations\201312280311571_AddTagStatistics.Designer.cs">
+      <DependentUpon>201312280311571_AddTagStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312280340272_SetTagStatisticsData.cs" />
+    <Compile Include="Migrations\201312280340272_SetTagStatisticsData.Designer.cs">
+      <DependentUpon>201312280340272_SetTagStatisticsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312280436340_SetStatisticsCascadeDeleteTrue.cs" />
+    <Compile Include="Migrations\201312280436340_SetStatisticsCascadeDeleteTrue.Designer.cs">
+      <DependentUpon>201312280436340_SetStatisticsCascadeDeleteTrue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312290306423_AddTagStatisticsFavoriteCount.cs" />
+    <Compile Include="Migrations\201312290306423_AddTagStatisticsFavoriteCount.Designer.cs">
+      <DependentUpon>201312290306423_AddTagStatisticsFavoriteCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312300459057_AddRefListPublishedDate.cs" />
+    <Compile Include="Migrations\201312300459057_AddRefListPublishedDate.Designer.cs">
+      <DependentUpon>201312300459057_AddRefListPublishedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401011138097_ChangeTagUseRefListCountToPublishedRefListCount.cs" />
+    <Compile Include="Migrations\201401011138097_ChangeTagUseRefListCountToPublishedRefListCount.Designer.cs">
+      <DependentUpon>201401011138097_ChangeTagUseRefListCountToPublishedRefListCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401011145182_AddTagUseRefListCount.cs" />
+    <Compile Include="Migrations\201401011145182_AddTagUseRefListCount.Designer.cs">
+      <DependentUpon>201401011145182_AddTagUseRefListCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401011310115_FixTagUseStaticticsPublishedRefListCount.cs" />
+    <Compile Include="Migrations\201401011310115_FixTagUseStaticticsPublishedRefListCount.Designer.cs">
+      <DependentUpon>201401011310115_FixTagUseStaticticsPublishedRefListCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401020220394_FixRefListStatisticsLinkCount.cs" />
+    <Compile Include="Migrations\201401020220394_FixRefListStatisticsLinkCount.Designer.cs">
+      <DependentUpon>201401020220394_FixRefListStatisticsLinkCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401170427055_IntegrateAuth.cs" />
+    <Compile Include="Migrations\201401170427055_IntegrateAuth.Designer.cs">
+      <DependentUpon>201401170427055_IntegrateAuth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401280820533_AddUserData.cs" />
+    <Compile Include="Migrations\201401280820533_AddUserData.Designer.cs">
+      <DependentUpon>201401280820533_AddUserData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401280933467_ChangeUserDataTableName.cs" />
+    <Compile Include="Migrations\201401280933467_ChangeUserDataTableName.Designer.cs">
+      <DependentUpon>201401280933467_ChangeUserDataTableName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefsContext.cs" />
+    <Compile Include="RefsDbInitializer.cs" />
+    <Compile Include="RefsDbInitializerUserContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mocha.Common\Mocha.Common.csproj">
+      <Project>{dc1da6da-3f54-4449-b5cc-ed36ef7afe44}</Project>
+      <Name>Mocha.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mocha.Refs.Core\Mocha.Refs.Core.csproj">
+      <Project>{02f10625-6e8e-4ba4-9673-0228a56fc197}</Project>
+      <Name>Mocha.Refs.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201312040150214_InitialCreate.resx">
+      <DependentUpon>201312040150214_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312100600138_AddUserDisplayName.resx">
+      <DependentUpon>201312100600138_AddUserDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312100805053_AddMochaUserDisplayName.resx">
+      <DependentUpon>201312100805053_AddMochaUserDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211432319_ChangeRefListTagUsesColumns.resx">
+      <DependentUpon>201312211432319_ChangeRefListTagUsesColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312211835500_ChangeRefListStaticsRequiredPrincipal.resx">
+      <DependentUpon>201312211835500_ChangeRefListStaticsRequiredPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312230445036_AddFavorite.resx">
+      <DependentUpon>201312230445036_AddFavorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312230944203_ChangeRefListStaticsRequiredDependent.resx">
+      <DependentUpon>201312230944203_ChangeRefListStaticsRequiredDependent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312251003432_AddRefListStatisticsRefListCoutAndFavoriteCount.resx">
+      <DependentUpon>201312251003432_AddRefListStatisticsRefListCoutAndFavoriteCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312260705380_ChangeFavriteUserToOwner.resx">
+      <DependentUpon>201312260705380_ChangeFavriteUserToOwner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312260802173_AddFavoriteUserAndTag.resx">
+      <DependentUpon>201312260802173_AddFavoriteUserAndTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312270503336_AddTagDisplayNameAndTagUseDisplayName.resx">
+      <DependentUpon>201312270503336_AddTagDisplayNameAndTagUseDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312270524372_ChangeTagUseDisplayNameToName.resx">
+      <DependentUpon>201312270524372_ChangeTagUseDisplayNameToName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312270617044_RemoveTagDisplayName.resx">
+      <DependentUpon>201312270617044_RemoveTagDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312271347145_AddTagUseStatistics.resx">
+      <DependentUpon>201312271347145_AddTagUseStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312271523367_FixTagUseStatisticsRefListCount.resx">
+      <DependentUpon>201312271523367_FixTagUseStatisticsRefListCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312280311571_AddTagStatistics.resx">
+      <DependentUpon>201312280311571_AddTagStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312280340272_SetTagStatisticsData.resx">
+      <DependentUpon>201312280340272_SetTagStatisticsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312280436340_SetStatisticsCascadeDeleteTrue.resx">
+      <DependentUpon>201312280436340_SetStatisticsCascadeDeleteTrue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312290306423_AddTagStatisticsFavoriteCount.resx">
+      <DependentUpon>201312290306423_AddTagStatisticsFavoriteCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312300459057_AddRefListPublishedDate.resx">
+      <DependentUpon>201312300459057_AddRefListPublishedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401011138097_ChangeTagUseRefListCountToPublishedRefListCount.resx">
+      <DependentUpon>201401011138097_ChangeTagUseRefListCountToPublishedRefListCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401011145182_AddTagUseRefListCount.resx">
+      <DependentUpon>201401011145182_AddTagUseRefListCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401011310115_FixTagUseStaticticsPublishedRefListCount.resx">
+      <DependentUpon>201401011310115_FixTagUseStaticticsPublishedRefListCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401020220394_FixRefListStatisticsLinkCount.resx">
+      <DependentUpon>201401020220394_FixRefListStatisticsLinkCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401170427055_IntegrateAuth.resx">
+      <DependentUpon>201401170427055_IntegrateAuth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401280820533_AddUserData.resx">
+      <DependentUpon>201401280820533_AddUserData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401280933467_ChangeUserDataTableName.resx">
+      <DependentUpon>201401280933467_ChangeUserDataTableName.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,34 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model OpenByBookmarkletPageViewModel
+
+@{
+    ViewBag.Title = "よく似たリンクを含むリストの検索";
+}
+
+<div class="page-title">
+    <h1 class="page-header">@(ViewBag.Title)</h1>
+</div>
+
+<h2>「<a href="@(Model.Uri)">@(Model.Title)</a>」とよく似たリンクを含むリスト</h2>
+
+@if (Model.RefLists.Any())
+{
+    @Html.Partial("_RefListSummaries", new { }.ToExpando())
+}
+else
+{
+    <text><p>リストはありませんでした。</p></text>
+}
+
+@section sidebar {
+
+}
+
+@section styles {
+    @Styles.Render("~/Content/list-open-by-bookmarklet")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/list-summary-base")
+    @Html.Partial("_OpenByBookmarkletScripts", Model)
+}

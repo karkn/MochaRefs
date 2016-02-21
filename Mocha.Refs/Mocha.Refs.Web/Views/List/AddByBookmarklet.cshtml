@@ -1,0 +1,61 @@
+﻿@using Mocha.Refs.Web.Models.List
+@model AddByBookmarkletPageViewModel
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="page-header">リンクの追加</h1>
+
+<form name="form" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label>URL</label>
+        <p class="form-control-static"><a href="{{Model.Uri}}" target="_blank">{{Model.Uri}}</a></p>
+        <input type="hidden" name="uri" value="{{Model.Uri}}" />
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': _submitted && form.title.$invalid}">
+        <label>タイトル <span class="required-indicator">*</span></label>
+        <input class="form-control" name="title" type="text" placeholder="タイトルを入力"
+               ng-model="_input.Title" ng-maxlength="@(WebConsts.MaxRefLinkTitleLength)" required />
+        <span class="help-block" ng-show="_submitted && form.title.$error.required">タイトルを入力してください</span>
+        <span class="help-block" ng-show="_submitted && form.title.$error.maxlength">
+            @(WebConsts.MaxRefLinkTitleLength)文字以内で入力してください
+        </span>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': _submitted && form.comment.$invalid}">
+        <label for="comment">コメント</label>
+        <textarea class="form-control" name="comment" rows="4" placeholder="コメントを入力"
+                  ng-model="_input.Comment" ng-maxlength="@(WebConsts.MaxRefLinkCommentLength)"></textarea>
+        <span class="help-block" ng-show="_submitted && form.comment.$error.maxlength">
+            @(WebConsts.MaxRefLinkCommentLength)文字以内で入力してください
+        </span>
+    </div>
+
+    <div class="form-group">
+        <label>追加先リスト</label>
+        <select id="target-ref-list" class="input-sm show-tick" name="RefListId"
+                data-mc-select data-live-search="true" ng-model="_input.RefListId" data-width="100%"
+                data-mc-array="Model.RefLists" data-mc-value="Id" data-mc-text="Title">
+            <option value="">新しいリストを作成</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" title="保存" ng-click="submit($event, '@Url.Action("AddByBookmarklet")')">保存</button>
+        <button type="button" class="btn btn-default" title="キャンセル" ng-click="cancel()">キャンセル</button>
+    </div>
+</form>
+
+@section styles {
+    <style type="text/css">
+        .bootstrap-select {
+            max-width: 600px;
+        }
+    </style>
+}
+
+@section scripts {
+    @Html.Partial("_AddByBookmarkletScripts", Model)
+}

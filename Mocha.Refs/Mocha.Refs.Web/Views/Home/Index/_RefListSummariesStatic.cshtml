@@ -1,0 +1,25 @@
+﻿@using Mocha.Refs.Web.Models.Home
+@model IndexPageViewModel
+
+@foreach (var list in Model.RefLists)
+{
+    <article class="list-summary">
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <h3 class="title"><a href="@Url.Content("~/lists")/@list.Id">@list.Title</a></h3>
+                <p class="comment">@list.Comment</p>
+                <p class="tag">
+                    @string.Join(", ", list.TagUses)
+                </p>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <p class="meta">
+                    @(list.PublishedDate)公開, @(list.UpdatedDate)更新
+                </p>
+                <p class="meta">
+                    <a href="@Url.Content("~/users")/@list.Author.UserName">@list.Author.DisplayName</a>
+                </p>
+            </div>
+        </div>
+    </article>
+}

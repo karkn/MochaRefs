@@ -1,0 +1,152 @@
+﻿@using Mocha.Refs.Web.Models.Home
+@model IndexPageViewModel
+
+@{
+    ViewBag.Title = "Refs";
+
+    var auth = Request.IsAuthenticated;
+}
+
+@if (auth)
+{
+    <div class="page-title">
+        <h1 class="page-header">
+            @(ViewBag.Title)
+            @*<small>参考になること、まとめておこう。</small>*@
+        </h1>
+    </div>
+
+    <h2 class="lists-title-header">お気に入りの新着</h2>
+
+    if (Model.RefLists.Count > 0)
+    {
+        <div class="clearfix">
+            <div class="pull-right">
+                @Sort.Select("_input.Sort", "SortKinds", "value", "text", "narrow(1)")
+            </div>
+        </div>
+        @Html.Partial("_RefListSummaries", new { }.ToExpando())
+        <div data-mc-pagination data-mc-count="Model.PageCount" data-mc-current="Model.PageIndex" data-mc-func="narrow"></div>
+    }
+    else
+    {
+        <p>
+            表示するリストがありません。
+        </p>
+        <p>
+            リストやタグやユーザーをお気に入りに登録すると、ここにリストが表示されるようになります。
+        </p>
+        <p>
+            <a href="@Url.Content("~/lists/")">すべてのリスト</a>や<a href="@Url.Content("~/tags/")">すべてのタグ</a>を見てお気に入り登録してみてください。
+        </p>
+    }
+}
+else
+{
+    <div class="herobox">
+        <h1 class="page-title">
+            @(ViewBag.Title)
+            @*<br class="visible-xs" />
+            <small>Webをみんなでまとめる。</small>*@
+            @*<small>参考になること、まとめておこう。</small>*@
+        </h1>
+
+        <div class="blurb">
+            <p>
+                Refsは参考になるリンクをリストにまとめて共有するサービスです。
+            </p>
+        </div>
+
+        <p class="buttons">
+            <button class="btn btn-primary" ng-click="_goto('@Url.Content("~/List/Create")')"><span class="glyphicon glyphicon-pencil"></span> リストを作成する</button>
+            <button class="btn btn-primary" ng-click="_goto('@Url.Content("~/lists/")')"><span class="fa fa-list"></span> リストの一覧を見る</button>
+        </p>
+
+        <hr />
+
+        <!-- 調べる => まとめる => 保存する -->
+
+        <div class="features">
+            <div class="point clearfix">
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="glyphicon glyphicon-search"></span> リストに残す</h3>
+                    <p>
+                        何かを調べたとき、役に立ったページをリストにまとめてみませんか。
+                        そのままでは消えてしまっていたあなたの足跡は、お友達や将来のあなたの助けになるはずです。
+                    </p>
+                </div>
+
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="fa fa-smile-o"></span> クリーンで機能的</h3>
+                    <p>
+                        ストレスフリーなクリーンデザイン。
+                        リストの一覧や検索画面では、たくさんのリストを流し読みできます。
+                    </p>
+                </div>
+
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="glyphicon glyphicon-pencil"></span> 快適なエディタ</h3>
+                    <p>
+                        ブラウザベースとは思えない直観的で快適なエディタ。
+                        リンクをリストにドラッグ&amp;ドロップするだけ。
+                        ブラウザで開いているWebページの追加もワンクリックでできます。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="functions">
+            <div class="point clearfix">
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="fa fa-users"></span> 誰でも</h3>
+                    <p>
+                        GoogleやTwitterのアカウントでログインしてすぐに使えます。
+                    </p>
+                    <p class="small">
+                        ※Refsにはアカウントを確認するための最小限の情報のみ通知されます。
+                    </p>
+                </div>
+
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="fa fa-laptop"></span> PCでも、スマホでも</h3>
+                    <p>使い慣れた環境で、状況に応じた環境で、いろんな環境で利用できます。</p>
+                </div>
+
+                <div class="pull-left col-xs-12 col-sm-4">
+                    <h3><span class="glyphicon glyphicon-cloud"></span> どこでも、いつでも</h3>
+                    <p>インターネット環境があれば、家でも外でも会社でも学校でも、どこでも利用できます。</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section meta {
+    @{
+        var desc = "Mochaware Refsは参考になる情報をまとめ、オンラインに保存・公開できるサービスです。目的やテーマごとにまとまった情報が集まります。";
+    }
+    <meta name="fragment" content="!">
+    <meta name="keywords" content="Mochaware,Refs,Reference,List,Bookmark,Link,参考,リスト,ブックマーク,リンク" />
+    <meta name="description" content="@desc" />
+    <meta property="og:description" content="@desc" />
+}
+
+@if (auth)
+{
+    @section sidebar {
+        @Html.Partial("Index/_Sidebar")
+    }
+}
+
+@section styles {
+    @Styles.Render("~/Content/home-index")
+}
+
+@if (auth)
+{
+    @section scripts {
+        @Scripts.Render("~/bundles/list-summary-base")
+        @Html.Partial("_IndexScripts", Model)
+    }
+}

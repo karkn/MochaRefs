@@ -1,0 +1,98 @@
+﻿@using Mocha.Refs.Web.Models.User
+@model DetailPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    var mod = getModule();
+    mod.
+        directive("mcSelect", mc.angular.SelectDirective).
+        directive("mcPagination", mc.angular.PaginationDirective("@Url.Content("~/Content/templates/pagination.html")"));
+
+    function PageController($scope) {
+        $scope.Model = mc.page.model;
+        $scope._input = {
+            Sort: mc.env.refListSortKinds[0].value
+        };
+        $scope.SortKinds = mc.env.refListSortKinds;
+
+        $scope.Refs = {};
+        $scope.DetailPartView = {};
+        $scope.toggleListDetail = getToggleListDetailFunc($scope);
+
+        $scope.createRefList = function (url) {
+            location.href = url;
+        };
+
+        $scope.updateCondition = function () {
+            $scope.Condition = null;
+
+            var conds = [];
+            var titleSearch = $scope.Model.TitleSearch;
+            if (titleSearch) {
+                conds.push("タイトル: " + titleSearch);
+            }
+
+            var tag = $scope.Model.TagUse;
+            if (tag) {
+                if (tag === "$unset") {
+                    conds.push("タグ: 未設定");
+                } else {
+                    conds.push("タグ: " + tag);
+                }
+            }
+            
+            if (conds.length > 0) {
+                $scope.Condition = conds.join(", ") + "で絞り込み";
+            }
+        };
+
+        $scope.narrow = function (index) {
+            $scope.Model.TitleSearch = mc.util.cutString($scope.Model.TitleSearch, mc.env.maxTitleSearchLength);
+
+            var data = {
+                id: $scope.Model.Author.Id,
+                titleSearch: $scope.Model.TitleSearch,
+                tag: $scope.Model.TagUse,
+                pageIndex: index,
+                sort: $scope._input.Sort
+            };
+            mc.util.get({
+                url: "@Url.Action("NarrowDetail")",
+                data: data
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    $scope.Model.PageIndex = data.PageIndex;
+                    $scope.Model.PageCount = data.PageCount;
+                    $scope.Model.RefLists = data.RefLists;
+                    $scope.updateCondition();
+                    $("body, html").scrollTop(0);
+                });
+            });
+        };
+
+        // ----------------------------------------
+        // favorite
+        // ----------------------------------------
+        $scope.toggleFavorite = function () {
+            var url = $scope.Model.IsFavored ?
+                mc.page.actions.removeFavorite :
+                mc.page.actions.addFavorite;
+
+            var data = {
+                userId: $scope.Model.Author.Id
+            };
+            mc.util.post({
+                url: url,
+                data: JSON.stringify(data)
+            }).done(function () {
+                $scope.$apply(function () {
+                    $scope.Model.IsFavored = !$scope.Model.IsFavored;
+                });
+            });
+        };
+
+        $scope.updateCondition();
+    }
+</script>

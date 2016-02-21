@@ -1,0 +1,45 @@
+﻿@using Mocha.Refs.Web.Models.Home
+@model IndexPageViewModel
+
+<script type="text/javascript">
+    "use strict";
+
+    var mod = getModule();
+    mod.
+        directive("mcSelect", mc.angular.SelectDirective).
+        directive("mcPagination", mc.angular.PaginationDirective("@Url.Content("~/Content/templates/pagination.html")"));
+
+    function PageController($scope) {
+        $scope.Model = [@Html.Raw(Model.ToJson())][0];
+        $scope._input = {
+            Sort: mc.env.refListSortKinds[0].value
+        };
+        $scope.SortKinds = mc.env.refListSortKinds;
+
+        $scope.Refs = {};
+        $scope.DetailPartView = {};
+        $scope.toggleListDetail = getToggleListDetailFunc($scope);
+
+        $scope.narrow = function (index) {
+            var data = {
+                pageIndex: index,
+                sort: $scope._input.Sort
+            };
+            mc.util.get({
+                url: "@Url.Action("Narrow")",
+                data: data
+            }).done(function (result) {
+                var data = JSON.parse(result);
+                $scope.$apply(function () {
+                    $scope.Model.PageIndex = data.PageIndex;
+                    $scope.Model.PageCount = data.PageCount;
+                    $scope.Model.RefLists = data.RefLists;
+                    $("body, html").scrollTop(0);
+                });
+            });
+        };
+
+    }
+
+
+</script>

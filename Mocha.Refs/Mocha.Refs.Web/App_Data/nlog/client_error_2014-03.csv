@@ -1,0 +1,53 @@
+datetime,user,userHost,userAgent,kind,url,lineNumber,message,stackTrace
+2014-03-19 12:45:35,,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,angular.$exceptionHandler,http://localhost:50226/,,"[$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n","Error: [$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3556:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3561:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at invoke (http://localhost:50226/Scripts/angular.js:3707:9)
+   at instantiate (http://localhost:50226/Scripts/angular.js:3731:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6848:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6230:13)
+   at forEach (http://localhost:50226/Scripts/angular.js:311:11)
+   at nodeLinkFn (http://localhost:50226/Scripts/angular.js:6217:11)"
+2014-03-19 12:45:39,,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,angular.$exceptionHandler,http://localhost:50226/lists/,,"[$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n","Error: [$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3556:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3561:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at invoke (http://localhost:50226/Scripts/angular.js:3707:9)
+   at instantiate (http://localhost:50226/Scripts/angular.js:3731:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6848:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6230:13)
+   at forEach (http://localhost:50226/Scripts/angular.js:311:11)
+   at nodeLinkFn (http://localhost:50226/Scripts/angular.js:6217:11)"
+2014-03-19 12:46:05,,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,angular.$exceptionHandler,http://localhost:50226/lists/,,"[$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n","Error: [$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3556:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3561:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at invoke (http://localhost:50226/Scripts/angular.js:3707:9)
+   at instantiate (http://localhost:50226/Scripts/angular.js:3731:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6848:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6230:13)
+   at forEach (http://localhost:50226/Scripts/angular.js:311:11)
+   at nodeLinkFn (http://localhost:50226/Scripts/angular.js:6217:11)"
+2014-03-19 12:48:35,,::1,Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko,angular.$exceptionHandler,http://localhost:50226/lists/,,"[$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n","Error: [$injector:unpr] Unknown provider: nProvider <- n
+http://errors.angularjs.org/1.2.13/$injector/unpr?p0=nProvider%20%3C-%20n
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3556:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:3561:13)
+   at getService (http://localhost:50226/Scripts/angular.js:3683:11)
+   at invoke (http://localhost:50226/Scripts/angular.js:3707:9)
+   at instantiate (http://localhost:50226/Scripts/angular.js:3731:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6848:7)
+   at Anonymous function (http://localhost:50226/Scripts/angular.js:6230:13)
+   at forEach (http://localhost:50226/Scripts/angular.js:311:11)
+   at nodeLinkFn (http://localhost:50226/Scripts/angular.js:6217:11)"
