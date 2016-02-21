@@ -7,7 +7,7 @@ namespace Mocha.Refs.Data.Migrations
     {
         public override void Up()
         {
-            CreateTable(
+/*            CreateTable(
                 "dbo.MochaUsers",
                 c => new
                     {
@@ -16,7 +16,7 @@ namespace Mocha.Refs.Data.Migrations
                         Email = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+  */          
             CreateTable(
                 "dbo.RefLists",
                 c => new
@@ -150,7 +150,7 @@ namespace Mocha.Refs.Data.Migrations
             DropTable("dbo.TagUses");
             DropTable("dbo.Users");
             DropTable("dbo.RefLists");
-            DropTable("dbo.MochaUsers");
+            //DropTable("dbo.MochaUsers");
         }
     }
 }

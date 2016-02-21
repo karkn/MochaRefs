@@ -23,12 +23,12 @@ namespace Mocha.Refs.Data.Migrations
             AlterColumn("dbo.Users", "UserName", c => c.String(nullable: false));
             DropColumn("dbo.Users", "MochaUserId");
             //DropTable("dbo.MochaUsers");
-            Sql("DROP VIEW dbo.MochaUsers");
+            //Sql("DROP VIEW dbo.MochaUsers");
         }
         
         public override void Down()
         {
-            CreateTable(
+/*            CreateTable(
                 "dbo.MochaUsers",
                 c => new
                     {
@@ -38,7 +38,7 @@ namespace Mocha.Refs.Data.Migrations
                         DisplayName = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+  */          
             AddColumn("dbo.Users", "MochaUserId", c => c.Guid(nullable: false));
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
             DropIndex("dbo.UserLogins", new[] { "UserId" });
